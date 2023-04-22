@@ -1,0 +1,175 @@
+% !TeX encoding = UTF-8
+% !TeX program = xelatex
+% !TeX spellcheck = en_US
+
+%-----------------------------------------------------------------------
+% 中国科学: 信息科学 中文模板, 请用 CCT-LaTeX 编译
+% http://scis.scichina.com
+% 南开大学程明明注释：也可以在Overleaf中使用XeLaTeX直接编译，
+% 例如：
+%-----------------------------------------------------------------------
+\documentclass{SCIS2020cn}
+\usepackage{amsthm,amsmath,amssymb,tikz,ctex}
+\usepackage{mathrsfs}
+\newcommand*{\num}{pi}
+ % define the plot style and the axis style
+\tikzset{elegant/.style={smooth,thick,samples=50,cyan}}
+\tikzset{eaxis/.style={->,>=stealth}}
+%\usepackage{breakurl}
+%\captionsetup[subfloat]{labelformat=simple,captionskip=0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者附加的定义
+%%% 常用环境已经加载好, 不需要重复加载
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 开始
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者不需要修改此处信息
+\ArticleType{电磁学C作业}
+%\SpecialTopic{}
+%\Luntan{中国科学院学部\quad 科学与技术前沿论坛}
+\Year{2020}
+\Vol{50}
+\No{1}
+\BeginPage{-1}
+\DOI{}
+\ReceiveDate{}
+\ReviseDate{}
+\AcceptDate{}
+\OnlineDate{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{黄瑞轩}{黄瑞轩}
+
+\entitle{Title}{Title for citation}
+
+\author[]{黄瑞轩}{}
+
+\enauthor[1]{Mingming XING}{{ }}
+
+\address[1]{ }
+
+\enaddress[1]{Affiliation, City {\rm 000000}, Country}
+
+\AuthorMark{电磁学C作业}
+
+\AuthorCitation{ }
+\enAuthorCitation{ }
+
+%\comment{\dag~同等贡献}
+%\encomment{\dag~Equal contribution}
+
+\maketitle
+\newpage
+
+\part{电力与电场}
+\part{静电场中的物质与电场能量}
+\part{电流与电路}
+\newpage
+\part{磁力与磁场}
+\section{习题4.1}
+取一个电流元$\text{d}\overrightarrow{l}$，以导线中点为原点$O$，$OP$方向为$x$轴正方向建立坐标系。由BSL定律（由于电流元到$P$点的距离$r$与题设中的$r$容易混淆，这里我们暂且将题设中的$r$改称$a$。）
+\begin{equation}
+    \text{d}\overrightarrow{B}=\frac{\mu_0}{4\pi}·\frac{I\text{d}\overrightarrow{l}×\overrightarrow{r}}{r^3}
+\end{equation}
+
+方向是垂直纸面向里的，大小
+\begin{equation}
+    \text{d}B=\frac{\mu_0}{4\pi}·\frac{I\text{d}l\sin\theta}{r^2}=\frac{\mu_0}{4\pi}·\frac{Ia\text{d}x}{(x^2+a^2)^{3/2}}
+\end{equation}
+
+因此
+\begin{equation}
+    B=\int\text{d}B=\int_{-\frac{l}{2}}^{\frac{l}{2}}\frac{\mu_0}{4\pi}·\frac{Ia\text{d}x}{(x^2+a^2)^{3/2}}=\frac{\mu_0I}{2\pi{}a}\frac{l}{\sqrt{l^2+4a^2}}
+\end{equation}
+
+这里用到了积分公式
+\begin{equation}
+    \int\frac{1}{(x^2+a^2)^{3/2}}=\frac{x}{a^2(x^2+a^2)^{1/2}}
+\end{equation}
+
+当$l>>a$时，(3)式第二项近似为1，即近似为无限长导线时的情况，即
+\begin{equation}
+    B\approx\frac{\mu_0I}{2\pi{}a}
+\end{equation}
+
+\section{习题4.4}
+（1）
+
+先来研究一个半径为$r$的圆环中心处的磁场，设电流方向为顺时针，则磁场方向应该垂直纸面向里，大小
+\begin{equation}
+    B=\int\text{d}B=\frac{\mu_0}{4\pi}\int_0^{2\pi{}r}\frac{I\text{d}l}{r^2}=\frac{\mu_0I}{2r}
+\end{equation}
+
+这里要进行单位化，则单位长度内包含的线圈匝数为
+\begin{equation}
+    n=\frac{N}{b-a}
+\end{equation}
+
+则$r$～$r+\text{d}r$内的线圈产生的磁感应强度
+\begin{equation}
+    B'\text{d}r=nB\text{d}r=\frac{\mu_0IN}{2r(b-a)}\text{d}r
+\end{equation}
+
+总的磁感应强度
+\begin{equation}
+    B_{O}=\int_a^b{}B'\text{d}r=\frac{\mu_0IN}{2r(b-a)}\ln\frac{b}{a}
+\end{equation}
+
+（2）
+
+仍然先来研究一个半径为$r$的圆环中心处的磁场，将$\overrightarrow{r}$分解为$\overrightarrow{r_{\text{平行}}}+\overrightarrow{r_{\text{垂直}}}$，由对称性，垂直方向分量引起的磁感应强度将被抵消，因此只需要考虑平行分量，则（由于电流元到$O$点的距离$r$与题设中的$r$容易混淆，这里我们暂且将题设中的$r$改称$s$。）
+\begin{equation}
+    \text{d}B=\frac{\mu_0}{4\pi}\frac{Ir\text{d}l}{(r^2+s^2)^{3/2}}
+\end{equation}
+
+因此
+\begin{equation}
+    B=\int_0^{2\pi{}r}\text{d}B=\frac{\mu_0Ir^2}{2(r^2+s^2)^{3/2}}
+\end{equation}
+
+则$r$～$r+\text{d}r$内的线圈产生的磁感应强度
+\begin{equation}
+    B'\text{d}r=nB\text{d}r=\frac{\mu_0INr^2}{2(b-a)(r^2+s^2)^{3/2}}\text{d}r
+\end{equation}
+
+总的磁感应强度
+\begin{equation}
+    B_{S}=\int_a^b{}B'\text{d}r=\frac{\mu_0IN}{2(b-a)}\left[\sinh^{-1}(\frac{b}{s})-\sinh^{-1}(\frac{a}{s})-\frac{b}{\sqrt{b^2+s^2}}+\frac{a}{\sqrt{a^2+s^2}}\right]
+\end{equation}
+
+这里用到了积分公式
+\begin{equation}
+    \int\frac{x^2}{(x^2+a^2)^{3/2}}=\sinh^{-1}(\frac{x}{a})-\frac{x}{\sqrt{x^2+a^2}}
+\end{equation}
+
+\section{习题4.8}
+电流为
+\begin{equation}
+    I=\frac{e}{\frac{2\pi{}r}{v}}=1.056×10^{-3}\text{A}
+\end{equation}
+
+由上题（1）的结果，磁感应强度应为
+\begin{equation}
+    B=\int\text{d}B=\frac{\mu_0I}{2r}=12.5\text{T}
+\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

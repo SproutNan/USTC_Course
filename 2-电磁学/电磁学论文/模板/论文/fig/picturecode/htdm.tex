@@ -1,0 +1,79 @@
+% \usepackage{tikz,tikz-3dplot,animate}
+%===========================================绘图示例代码==================================================%
+%把绘图命令单独定义出来，使得后续方便使用animateinline环境
+\newcommand{\drd}[3]{%
+\tdplotsetmaincoords{67}{110}%调整坐标系角度
+\begin{tikzpicture}[scale=3,tdplot_main_coords,t/.style={font=\scriptsize\itshape}]
+    \def\R{.5}%圆周半径,单独定义出来易于修改
+    \coordinate(O) at (0,0,0);%定原点,产生参考点
+  
+    %设置转动坐标系(Euler rotations)
+    \tdplotsetrotatedcoords{#1}{#2}{#3}%#1为进动角，#2为章动角，#3为自转角；若没有\tdplotsetrotatedcoordsorigin{point}设置转动坐标系的原点的话则原点默认与主坐标系重合
+    \tdplotdrawarc[fill=gray!15,line width=1pt,draw=blue!50!cyan,tdplot_rotated_coords]{(O)}{\R}{0}{360}{}{};%使用tdplot_rotated_coords切换到转动坐标系，并在转动坐标系中画一个圆轨道，圆弧命令：\tdplotdrawarc[coordinate system, draw styles]{(中心点)}{圆弧半径}{起始角}{终止角}{label options}{label}
+    % \draw[teal,->,tdplot_rotated_coords] (O)--(.6,0,0)node[above]{$x'$};
+    % \draw[teal,->,tdplot_rotated_coords] (O)--(0,.6,0)node[above]{$y'$};
+	% \draw[teal,->,tdplot_rotated_coords] (O)--(0,0,.6)node[above]{$z'$};
+    
+    %画主坐标系，因涉及到颜色覆盖问题而在转动坐标系之后画
+    \shade[ball color=teal!30] (O) node[left,t]{定点} circle (.5pt);
+    \draw[-latex] (O)--(1.8,0,0) node[right]{$x$(cm)};
+    \draw[-latex] (O)--(0,2,0) node[above]{$y$(cm)};
+    \draw[-latex] (O)--(0,0,1.5) node[above]{$z$(cm)};
+    \tdplotdrawarc[help lines,dashed,thick]{(O)}{\R}{0}{360}{}{};
+	
+    %将旋转坐标系中的点对应到主坐标系中(点在主坐标系中的各位置分量分别存放到：\tdplotresx,\tdplotresy,\tdplotresz中)
+	\tdplottransformrotmain{0.5}{0}{0}%选择动点，此处选动点为旋转坐标系的x轴与轨道的交点（因为容易选,你也可以随意选。）另外注意：\tdplottransformmainrot{x}{y}{z}能将主坐标系中某一点对应到旋转坐标系中，且各分量放在与之同名的\tdplotresx,\tdplotresy,\tdplotresz中
+    \shade[tdplot_rotated_coords,ball color=brown] (0.5,0,0) node[above,t]{动点} circle (.5pt);
+    \fill (\tdplotresx,\tdplotresy,0) circle (.2pt);
+	\draw[-latex,red] (0,0,0) -- (\tdplotresx,\tdplotresy,\tdplotresz)node[below right,t]{$\vec{r}=(\tdplotresx,\tdplotresy,\tdplotresz)$};
+	\draw[dashed,red] (0,0,0) -- (\tdplotresx,\tdplotresy,0);
+	\draw[dashed,red] (\tdplotresx,\tdplotresy,\tdplotresz) -- (\tdplotresx,\tdplotresy,0);
+
+	%计算指定点与z轴的夹角theta以及与x轴的夹角phi，结果存储在宏\tdplotrestheta和\tdplotresphi中
+	\tdplotgetpolarcoords{\tdplotresx}{\tdplotresy}{\tdplotresz}
+
+    % 标记角
+    \tdplotdrawarc[->,olive,t]{(O)}{0.1}{0}{\tdplotresphi}{anchor=north}{$\phi=\tdplotresphi^\circ$}
+    \tdplotsetthetaplanecoords{\tdplotresphi}%将phi平面转换到theta平面上，旋转角为:phi
+    \tdplotdrawarc[tdplot_rotated_coords,->,olive,t]{(O)}{0.2}{0}{\tdplotrestheta}{above}{$\theta=\tdplotrestheta^\circ$}%注意要用tdplot_rotated_coords切换到所谓的theta平面
+\end{tikzpicture}}
+
+%-------------进动、章动、自转----------------%
+\begin{center}
+\begin{animateinline}[loop,autopause,controls,]{5}
+    \multiframe{72}{ijdj=0+5,izdj=0+5,izxj=0+5}{%
+    % \edef\ijdj{\ijdj}
+    % \edef\izdj{\izdj}
+    % \edef\izxj{\izxj}
+    \drd{\ijdj}{\izdj}{\izxj}}%如果无法正常使用此命令，可考虑将参数先用\edef展开
+\end{animateinline}
+\captionof{figure}{动点绕定点转动示意图(进动、章动、自转共存)\label{fig:drd}}
+\end{center}
+
+%-------------进动----------------%
+        % \begin{animateinline}[loop,autopause,controls,]{10}
+        %     \multiframe{120}{ijdj=0+3,izdj=10+0,izxj=0+0}{%为了区别自转，先章动10°
+        %     % \edef\ijdj{\ijdj}
+        %     % \edef\izdj{\izdj}
+        %     % \edef\izxj{\izxj}
+        %     \drd{\ijdj}{\izdj}{\izxj}}%如果无法正常使用此命令，可考虑将参数先用\edef展开
+        % \end{animateinline}
+
+%-------------章动----------------%      
+        % \begin{animateinline}[loop,autopause,controls,]{10}
+        %     \multiframe{120}{ijdj=0+0,izdj=0+3,izxj=0+0}{%
+        %     % \edef\ijdj{\ijdj}
+        %     % \edef\izdj{\izdj}
+        %     % \edef\izxj{\izxj}
+        %     \drd{\ijdj}{\izdj}{\izxj}}%如果无法正常使用此命令，可考虑将参数先用\edef展开
+        % \end{animateinline}  
+
+%-------------自转----------------%
+        % \begin{animateinline}[loop,autopause,controls,]{10}
+        %     \multiframe{120}{ijdj=0+0,izdj=10+0,izxj=0+3}{%为了区别进动，先章动10°
+        %     \edef\ijdj{\ijdj}
+        %     \edef\izdj{\izdj}
+        %     \edef\izxj{\izxj}
+        %     \drd{\ijdj}{\izdj}{\izxj}}%如果无法正常使用此命令，可考虑将参数先用\edef展开
+        % \end{animateinline}     
+%========================================================================================================%

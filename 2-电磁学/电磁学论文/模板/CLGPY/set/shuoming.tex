@@ -1,0 +1,22 @@
+%--------------------以下命令是为了写说明文档而定义的，实际使用时可不管------------------------------%
+\def\ts#1{\textcolor{red}{#1}}%提示命令
+\def\bzx#1#2{$\underbracket[.5pt][1pt]{\text{#1}}_{\textcolor{red}{\text{#2}}}$}%下标注命令
+\def\bzs#1#2{$\overbrace{\text{#1}}^{\textcolor{red}{\text{#2}}}$}%上标注命令
+% \def\xbz#1#2{\vtop{\halign{##\crcr \hfil #1\hfil\crcr \noalign{\nointerlineskip\textcolor{red}{\hrule}\kern1pt} \hfil\small\textcolor{red}{#2}\hfil\crcr}}}%一个失败的尝试
+\def\BibTeX{{%
+\rm
+B%
+\kern-.05em%
+{%
+\sc
+i%
+\kern-.025em %
+b%
+}%
+\kern-.08em
+T%
+\kern-.1667em%
+\lower.7ex\hbox{E}%
+\kern-.125em%
+X%
+}}%bibtex样式定制

@@ -1,0 +1,808 @@
+% !TeX encoding = UTF-8
+% !TeX program = xelatex
+% !TeX spellcheck = en_US
+
+%-----------------------------------------------------------------------
+% 中国科学: 信息科学 中文模板, 请用 CCT-LaTeX 编译
+% http://scis.scichina.com
+% 南开大学程明明注释：也可以在Overleaf中使用XeLaTeX直接编译，
+% 例如：
+%-----------------------------------------------------------------------
+\documentclass{SCIS2020cn}
+\usepackage{amssymb}
+\usepackage{amsmath}
+%\usepackage{breakurl}
+%\captionsetup[subfloat]{labelformat=simple,captionskip=0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者附加的定义
+%%% 常用环境已经加载好, 不需要重复加载
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 开始
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者不需要修改此处信息
+\ArticleType{数学分析(B1)}
+%\SpecialTopic{}
+%\Luntan{中国科学院学部\quad 科学与技术前沿论坛}
+\Year{2020}
+\Vol{50}
+\No{1}
+\BeginPage{1}
+\DOI{}
+\ReceiveDate{}
+\ReviseDate{}
+\AcceptDate{}
+\OnlineDate{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{期末复习}{引用的标题}
+
+\entitle{Title}{Title for citation}
+
+\author[]{黄瑞轩}{}
+
+\enauthor[]{Ming XING}{}
+\enauthor[2]{Mingming XING}{{ }}
+\enauthor[1]{Ming XING}{}
+\enauthor[3]{Ming XING}{}
+
+\address[1]{ }
+\address[2]{ }
+\address[3]{ }
+
+\enaddress[1]{Affiliation, City {\rm 000000}, Country}
+\enaddress[2]{Affiliation, City {\rm 000000}, Country}
+\enaddress[3]{Affiliation, City {\rm 000000}, Country}
+
+\AuthorMark{第一作者等}
+
+\AuthorCitation{ }
+\enAuthorCitation{ }
+
+%\comment{\dag~同等贡献}
+%\encomment{\dag~Equal contribution}
+
+\maketitle
+\part{不定积分}
+
+\section{定义}
+\begin{definition}[原函数]\label{def1}
+设$f(x)$是定义在区间$I$上的函数，如果存在可微函数$F(x)$，使得对任一$x\in{}I$，都有$F'(x)=f(x)$，或者$\text{d}F(x)=f(x)\text{d}x$，则称$F(x)$为$f(x)$在区间$I$上的一个原函数。
+\end{definition}
+
+1、连续函数存在原函数，但是存在原函数的函数不一定连续。例如
+\[F(x)=\left\{\begin{array}{ll}
+
+x^2\text{sin}\frac{1}{x},&\text{$x\neq0$},\\
+
+0,&\text{$x=0$}.
+
+\end{array}\right.\]
+其导函数为
+\[f(x)=F'(x)=\left\{\begin{array}{ll}
+
+2x\text{sin}\frac{1}{x}-\text{cos}\frac{1}{x},&\text{$x\neq0$},\\
+
+0,&\text{$x=0$}.
+\end{array}\right.\]
+$f(x)$在$x=0$处有第二类间断，但是在$(-1,1)$内有原函数$F(x)$，
+
+2、若$f(x)$在区间内有第一类间断，则$F(x)$不存在。
+
+3、由于$F(x)$是可导的，因此$F(x)$是连续的。
+
+4、初等函数在定义域内若是连续的，则一定有原函数，但是这原函数不一定能够被初等表示。
+
+5、$I$可以是$[ ],[ ),( )$，端点导数理解为单侧导数。
+\begin{definition}[不定积分]\label{def2}
+$\displaystyle\int{}f(x)\text{d}x=F(x)+C$
+\end{definition}
+[特别的积分公式]
+\begin{equation}
+\int{\frac{1}{\sqrt{x^2+A}}}\text{d}x=\ln{\abs{x+\sqrt{x^2+A}}}+C
+\end{equation}
+\begin{equation}
+\int{\frac{1}{x\sqrt{x^2-1}}}\text{d}x=\text{arcsec}x+C=-\text{arccsc}x+C
+\end{equation}
+\subsection{运算性质}
+(与微分的互逆性)
+\begin{equation}
+\left[\int{f(x)\text{d}x}\right]'=[F(x)+C]'=f(x)
+\end{equation}
+
+(线性性)
+\begin{equation}
+\int{\left[\sum_{i=1}^nc_if_i(x)\right]\text{d}x}=\sum_{i=1}^n\left[c_i\int{f_i(x)\text{d}x}\right]
+\end{equation}
+\subsection{计算方法}
+\subsubsection{凑微分法}
+\begin{equation}
+\int{f(x)\text{d}x}=\int{g(\phi(x))\phi'(x)\text{d}x}=\int{g(\phi(x))\text{d}\phi(x)}
+\end{equation}
+
+举例：
+
+（1）$\displaystyle\int{f(\ln{|x|})\frac{1}{x}}\text{d}x=\int{f(\ln{|x|})}\text{d}\ln{|x|}$
+
+（2）$\displaystyle\int{f(\tan{x})\sec^2x\text{d}x}=\int{f(\tan{x})\text{d}(\tan{x})}$
+
+（3）$\displaystyle\int{f(\cot{x})\csc^2x\text{d}x}=-\int{f(\cot{x})\text{d}(\cot{x})}$
+
+（4）$\displaystyle\int{\frac{f'(x)}{f(x)}\text{d}x}=\int{\frac{\text{d}f(x)}{f(x)}}=\ln{|f(x)|}+C$
+
+（5）$\displaystyle\int{\frac{\text{d}x}{\cos{x}}}=\int{\frac{\cos{x}\text{d}x}{\cos^2{x}}}=\int{\frac{\text{d}\sin{x}}{1-\sin^2{x}}}$
+或$\displaystyle\int{\frac{\text{d}x}{\cos{x}}}=\int{\frac{\sec{x}(\sec{x}+\tan{x})\text{d}x}{\sec{x}+\tan{x}}}=\int{\frac{\text{d}(\sec{x}+\tan{x})}{\sec{x}+\tan{x}}}$
+
+\subsubsection{换元法}
+条件：$x=\phi(t)$在$t\in[\alpha{},\beta{}]$有连续导数，且$\phi'(t)\neq{}0$，即$\phi(t)$单调。
+
+\begin{equation}
+\int{f(x)\text{d}x}=\int{f(\phi(t))\phi'(x)\text{d}x}=\int{g(t)\text{d}t}=G(t)+C=G(\phi^{-1}(x))+C
+\end{equation}
+
+注意计算出$G(t)$后还要回代$t=\phi^{-1}(x)$。
+
+举例：
+
+（1）$\displaystyle\int{\sqrt{a^2-x^2}\text{d}x},a>0$，令$\displaystyle{}x=a\sin{\theta},\theta\in\left[-\frac{\pi}{2},\frac{\pi}{2}\right]$。
+
+注：一切二次式$Ax^2+Bx+C$都可以配成$A(x-\alpha)^2+\beta\equiv{}{AX^2+\beta}$。
+
+（2）$\displaystyle\int{\sqrt{x^2-a^2}\text{d}x},|x|>a>0$，令$x=a\cosh{t},t>0$，则$\text{d}x=a\sinh{t}\text{d}t$。
+
+注1：由于$y=a\cosh{x}$在$(a,+\infty)$与$(-\infty,-a)$单调性不一致，故要分开区间讨论。
+
+注2：也可以令$\displaystyle{}x=a\sec{t},t\in\left(0,\frac{\pi}{2}\right)$。
+
+（3）$\displaystyle\int{\frac{1}{x\sqrt{x^2+6}}\text{d}x}$，可令$x=\sqrt{6}\sinh{t}$(双曲代换)，也可令$\displaystyle{}x=\frac{1}{u},x>0$(倒代换)。
+
+\subsubsection{分部积分法}
+
+条件：$\displaystyle{}u(x),v(x)$都可导，且$\displaystyle\int{v(x)\text{d}u(x)}$存在。
+
+上述条件的推论是$\displaystyle\int{u(x)\text{d}v(x)}$也存在，且$\displaystyle\int{u(x)\text{d}v(x)}=u(x)v(x)-\int{v(x)\text{d}u(x)}$。
+
+[策略]
+
+(1)若$f(x)$形如$P_n(x)·N(x),N(x)$形如$e^x,\sin{x},\cos{x}$…，其求导不能化成$R(x)$，则应使$P_n(x)$降幂（求导）。
+
+(2)若$f(x)$形如$P_n(x)·Y(x),Y(x)$形如$\ln{x},\arcsin{x}$…，其求导能化成$R(x)$(有理式或类有理式)，则应对$Y(x)$求导。
+
+(3)若$f(x)$形如$e^{\alpha{}x}\sin{\beta{x}},e^{\alpha{}x}\cos{\beta{x}}$，利用分部积分法循环两次可得结果。
+
+朗斯基行列式表示：$\displaystyle\int{e^{\alpha{}x}\cos{\beta{x}}\text{d}x}=\frac{\left| \begin{array}{ccc} \cos{\beta{x}} & e^{\alpha{x}}\\ -\beta\sin{\beta{x}} & \alpha{}e^{\alpha{x}}\end{array} \right|}{\sqrt{a^2+b^2}},\int{e^{\alpha{}x}\sin{\beta{x}}\text{d}x}=\frac{\left| \begin{array}{ccc} \sin{\beta{x}} & e^{\alpha{x}}\\ \beta\cos{\beta{x}} & \alpha{}e^{\alpha{x}}\end{array} \right|}{\sqrt{a^2+b^2}}$。
+
+(4)若$f(x)$与自然数$n$有关，形如$\ln^n\alpha{x},\sin^n{\alpha{x}},x^ne^x$等，可设$\displaystyle\int{f}=I_n$，用分部积分法递推可得出$I_n=\psi{(I_{n-1},I_{n-2},...)}$，如此就可以求出。
+
+(5)相消技巧：
+
+1、分部积分后，右边再弄出与左边相同的形式；
+
+2、构造$M(x)+N(x),M(x)-N(x)$，再求积分。\\
+
+
+[举例]
+
+（1）$\displaystyle\int{(\arcsin{x})^2}\text{d}x=x(\arcsin{x})^2-\int{\frac{2x\arcsin{x}}{\sqrt{1-x^2}}\text{d}x}$\\\\\\\\
+
+（2）$\displaystyle\int{\sqrt{x^2+a^2}\text{d}x}=x\sqrt{x^2+a^2}-\int{x·\frac{x}{\sqrt{x^2+a^2}}\text{d}x}$\\\\\\\\
+
+（3）$\displaystyle{}I_n=\int{\frac{\text{d}x}{(x^2+a^2)^n}}$\\\\\\\\
+
+（4）$\displaystyle{}J_n=\int{x^ne^x\text{d}x}$\\\\\\\\
+\subsection{有理函数的不定积分}
+\subsubsection{因式分解定理}
+
+$\displaystyle{}R(x)=\frac{P(x)}{Q(x)}$可唯一分解为四种分式之和：$\displaystyle\frac{A}{x-a}$，$\displaystyle\frac{A}{(x-a)^k}$，$\displaystyle\frac{mx+n}{x^2+px+q}$，$\displaystyle\frac{mx+n}{(x^2+px+q)^k}$。其中$x^2+px+q$是二次质因式。\\
+
+1)$\displaystyle\int{\frac{A}{x-a}\text{d}x}=\ln{|x-a|}+C$
+
+2)$\displaystyle\int{\frac{A}{(x-a)^k}\text{d}x}=\frac{A}{1-k}·\frac{1}{(x-a)^{k-1}}+C,k\neq1$
+
+3)$\displaystyle\int{\frac{mx+n}{x^2+px+q}\text{d}x}=\int{\frac{m\left(x+\frac{p}{2}\right)+n-\frac{1}{2}mp}{\left(x+\frac{p}{2}\right)^2+q-\frac{p^2}{4}}\text{d}x}$
+
+4)$\displaystyle\int{\frac{mx+n}{(x^2+px+q)^k}\text{d}x}=\alpha\int{\frac{\text{d}(t^2+a^2)}{(t^2+a^2)^k}}+\beta\int\frac{1}{(t^2+a^2)^k}\text{d}t$\\
+
+[分部策略]
+
+1)如果分母有二次多项式$x^2+ax+b$，则分部有$\displaystyle\frac{Ax+B}{x^2+ax+b}$的形式；
+
+2)如果分母有线性式的方幂$(x+a)^k$，则分部有$\displaystyle\sum_{i=1}^k\frac{c_i}{(x+a)^i}$的形式。\\
+
+[举例]
+
+（1）$\displaystyle\int{\frac{1}{x^3+1}\text{d}x}=\int{\frac{1}{(x+1)(x^2-x+1)}\text{d}x}=\int{\left(\frac{A}{x+1}+\frac{Bx+C}{x^2-x+1}\right)\text{d}x}$\\
+
+（2）$\displaystyle\int{\frac{1}{x(x-1)^2}\text{d}x}=\int{\left(\frac{A}{x}+\frac{B}{(x-1)^2}+\frac{C}{x-1}\right)\text{d}x}$\\
+
+（3）$\displaystyle\int{\frac{1}{x(x^8+1)}\text{d}x}=\int{\frac{x^7\text{d}x}{x^8(x^8+1)}}=\frac{1}{8}\int{\frac{\text{d}x^8}{x^8(x^8+1)}}$\\
+
+（4）$\displaystyle\int{\frac{x^4+1}{x^6+1}}\text{d}x=\int{\left(\frac{2}{3(x^2+1)}+\frac{1}{6(x^2+\sqrt{3}x+1)}-\frac{1}{6(-x^2+\sqrt{3}x-1)}\right)\text{d}x}$\\
+
+（5）$\displaystyle\int{\frac{x^2-1}{x^4+1}}\text{d}x=\int{\left(\frac{Ax+B}{x^2-\sqrt{2}x+1}+\frac{Cx+D}{x^2+\sqrt{2}x+1}\right)\text{d}x}$\\
+\subsubsection{三角函数有理式$R(\sin{x},\cos{x})$}
+[策略]
+
+(1)万能变换
+
+令$\displaystyle{}t=\tan{\frac{x}{2},-\pi<x<\pi}$，则$\displaystyle{}x=2\arctan{t},\text{d}x=\frac{2}{1+t^2}\text{d}t$，
+\begin{equation}
+\int{R(\sin{x},\cos{x})}\text{d}x=\int{R\left(\frac{2t}{1+t^2},\frac{1-t^2}{1+t^2}\right)·\frac{2}{1+t^2}}\text{d}x
+\end{equation}
+
+(2)换元法
+
+□当$R(-\sin{x},\cos{x})=-R(\sin{x},\cos{x})$时，即$R$是$\sin{x}$的奇函数时，令$t=\cos{x}$；
+
+□当$R(\sin{x},-\cos{x})=-R(\sin{x},\cos{x})$时，即$R$是$\cos{x}$的奇函数时，令$t=\sin{x}$；
+
+□当$R(-\sin{x},-\cos{x})=R(\sin{x},\cos{x})$时，即$R$是二元自变量的偶函数时，令$t=\tan{x}$；
+
+(3)有理线性式的情形
+\begin{equation}
+\int{\frac{a_1\cos{x}+b_1\sin{x}}{a\cos{x}+b\sin{x}}}\text{d}x=\int{\frac{A(a\cos{x}+b\sin{x})}{a\cos{x}+b\sin{x}}}\text{d}x+\int{\frac{\text{d}B(a\cos{x}+b\sin{x})}{a\cos{x}+b\sin{x}}}\text{d}x
+\end{equation}
+
+\subsubsection{简单根式有理式的积分}
+
+（1）$\displaystyle{}R\left(x,\sqrt[n]{\frac{ax+b}{cx+d}}\right),ad-bd\neq0$，令$\displaystyle{}t=\sqrt[n]{\frac{ax+b}{cx+d}}$.\\
+
+[举例]$\displaystyle\int{\frac{\sqrt{x+1}+2}{(x+1)^2-\sqrt{x+1}}}\text{d}x$\\\\
+
+（2）$R(x,\sqrt{ax^2+bx+c}),a\neq0,b^2-4ac>0.$
+
+1°(Euler第一代换)当$a>0$，令$\sqrt{ax^2+bx+c}=t\pm\sqrt{a}x$.
+
+2°(Euler第二代换)当$a<0$，$ax^2+bx+c=a(x-\lambda)(x-\mu),\lambda,\mu\in\mathbb{R}$，令$\sqrt{ax^2+bx+c}=t(x-\lambda)$或$t(\mu-x)$.\\
+
+[举例]
+
+（1）$\displaystyle\int{\frac{\text{d}x}{x+\sqrt{x^2-x+1}}}$\\\\
+
+（2）$\displaystyle\int{\frac{\text{d}x}{x\sqrt{-x^2+x+2}}}$\\\\
+\part{定积分}
+\section{定义}
+\begin{definition}[分割]\label{def3}
+在区间$[a,b]$上放入$n-1$个分点$x_i(i=1,...,n-1)$，使得$a=x_0<x_1<...<x_n=b$，则将这种分法称作区间$[a,b]$的一种分割，记为$T$。
+
+其中每个小区间的长度记为$\Delta{}x_i=x_i-x_{i-1}$，分割的步长$\displaystyle||T||=\max_{n}\left\{\Delta{}x_i\right\}$。
+\end{definition}
+
+\begin{definition}[定积分]\label{def4}
+设$f(x)$在$[a,b]$上有定义，作$[a,b]$的任意分割$T$，任取$\xi_i\in[x_{i-1},x_i]$，令$\displaystyle{}S_n(T)=\sum_{i=1}^nf(\xi_i)\Delta{}x_i$，若$||T||\rightarrow0^+$时，$\displaystyle{}\lim_{||T||\rightarrow0^+}S_n(T)=\lim_{||T||\rightarrow0^+}\sum_{i=1}^nf(\xi_i)\Delta{}x_i=L$存在且与$T,\xi_i$无关，则$f(x)$在$[a,b]$上可积，并称这个极限值$L$是$f(x)$在$[a,b]$上的定积分，记为
+
+\begin{equation}
+\int_a^b{f(x)\text{d}x}=\lim_{||T||\rightarrow0^+}\sum_{i=1}^nf(\xi_i)\Delta{}x_i
+\end{equation}
+
+用$\varepsilon-\delta$语言表示为：设$L\in\mathbb{R},\forall\varepsilon>0,\exists\delta>0$，当$||T||<\delta$时，任取$\xi_i\in[x_{i-1},x_i]$，都有$\displaystyle\left|\sum_{i=1}^nf(\xi_i)\Delta{}x_i-L\right|<\varepsilon$.
+
+[注意]
+
+1、$T,\xi_i$的选择一定要满足任意性，否则不能得出定积分存在；反之，如果已知$\displaystyle\int_a^b{f(x)\text{d}x}$存在，则用Riemann和计算定积分时可以选取特殊的分法进行计算。
+
+2、$\displaystyle\int_a^b{f(x)\text{d}x}=\int_a^b{f(u)\text{d}u}=...$与积分变量名字无关。
+
+3、$||T||\rightarrow0^+\Rightarrow{}n\rightarrow+\infty$，反过来不成立；
+
+4、用Reimann和计算定积分时可能会遇到的求和：
+\begin{equation}
+\sum_{i=1}^n\sin{i}=\frac{1}{2}\left(\sin{n}-\cot{\frac{1}{2}}\cos{n}+\cot{\frac{1}{2}}\right)
+\end{equation}
+\begin{equation}
+\sum_{i=1}^n\cos{i}=\frac{1}{2}\left(\cos{n}+\cot{\frac{1}{2}}\sin{n}-1\right)
+\end{equation}
+
+[举例]
+
+（1）$\displaystyle\lim_{n\rightarrow\infty}{\frac{1}{n}\sum_{i=1}^n{\sin{\frac{i\pi}{n}}}}=\int_0^1{\sin{\pi{}x}}\text{d}x=\frac{2}{\pi}$\\\\
+
+（2）$\displaystyle\lim_{n\rightarrow\infty}{\sum_{i=1}^n{\frac{i}{1+in}·2^{\frac{i}{n}}}}$\\\\
+
+（3）求证$\displaystyle\frac{b-a}{\int_a^b{\frac{1}{f(x)}}\text{d}x}\leqslant{}e^{\frac{1}{b-a}\int_a^b{\ln{f(x)}\text{d}x}}\leqslant\frac{1}{b-a}\int_a^b{f(x)}\text{d}x$
+\end{definition}
+
+\subsection{可积性}
+\subsubsection{可积的必要条件}若$f(x)$在$[a,b]$上可积，则它在$[a,b]$上有界。
+
+（1）上述命题的逆不成立，如Dirichlet$(x)$在$[0,1]$上有界，但不可积。
+
+（2）若$|f(x)|$或$f^2(x)$可积，$f(x)$也未必可积。
+\subsubsection{达布积分}
+若$f(x)$在$[a,b]$上有界，则它在$[a,b]$上可积的充要条件是$\displaystyle\lim_{||T||\rightarrow0^+}\sum_{i=1}^n{\omega_i\Delta{}x_i=0}$，其中$\omega_i\equiv{}M_i-m_i$是$f(x)$在$[x_i,x_{i+1}]$上的振幅。
+\subsubsection{可积函数类}
+
+下面罗列一些可积的充分条件。
+
+（1）闭区间上的连续函数是可积的，因为闭区间上的连续函数一定是有界的。
+
+（2）闭区间上的有界函数若只有可数个间断点，也可积。
+
+（3）闭区间上的单调函数若只有可数个跳跃间断点，也可积。\\
+
+[注记]
+
+1、黎曼函数
+$$r(x)=\left\{\begin{array}{ccc}
+
+\frac{1}{q},x=\frac{p}{q},\\
+
+0,x\neq\frac{p}{q}.\\
+
+\end{array}\right.$$
+
+有一些有趣的性质：
+
+（1）在$[0,1]$上有界，下确界是0，上确界为$\displaystyle\frac{1}{2}$；
+
+（2）在$[0,1]$上每一点的极限都为0；
+
+（3）在无理点连续，在有理点不连续；
+
+（4）在$[0,1]$上可积，但是积分值为0.\\
+
+2、设$f,g$均为定义在$[a,b]$上的有界函数，若仅在$[a,b]$中有限个点处$f(x)\neq{}g(x)$，则当$f$在$[a,b]$上可积时，$g$在$[a,b]$上也可积，且$\displaystyle\int_a^b{f(x)\text{d}x}=\int_a^b{g(x)\text{d}x}$.
+
+证明：设$F(x)=g(x)-f(x)$，则$F(x)$是$[a,b]$上只有有限个点处不为零的函数，运用达布积分的充要条件就可以得证。\\
+
+3、设$f(x)\in{}C[a,b],f(x)\geqslant0,f(x)\not\equiv0$，则$\displaystyle\int_a^b{f(x)\text{d}x}$>0.
+
+证明：一定$\exists{}x_0\in{}[a,b],f(x_0)>0$，取$\displaystyle\varepsilon=\frac{f(x_0)}{2}$，
+
+　　　因为$f(x)\in{}C[a,b]$，所以$\exists\delta>0,x\in(x_0-\delta,x_0+\delta)$，使得$f(x)>f(x_0)-\displaystyle\varepsilon=\frac{f(x_0)}{2}$，
+
+　　　所以$\displaystyle\int_a^b{f(x)\text{d}x}\geqslant\int_{x_0-\delta}^{x_0+\delta}{f(x)\text{d}x}>2\delta·\frac{f(x_0)}{2}=\delta{}f(x_0)>0$.
+
+\subsection{Newton-Lebniz公式}
+
+设$f(x)$在$[a,b]$上可积，且有原函数$F(x)$，则
+\begin{equation}
+\displaystyle\int_a^b{f(x)\text{d}x}=F(b)-F(a)
+\end{equation}
+
+[注记]
+
+（1）原函数存在，函数未必可积。例如
+$F(x)=\left\{\begin{array}{ll}
+
+x^2\text{sin}\frac{1}{x^2},&\text{$x\neq0$},\\
+
+0,&\text{$x=0$}.
+
+\end{array}\right.$
+设$f(x)=F'(x)$，显然，$f(x)$在$x=0$不连续且在$x=0$附近无界，所以它在区间$[-1,1]$上不可积，但它在区间$[-1,1]$内却有原函数$F(x)$.
+
+（2）函数可积，原函数未必存在。例如$f(x)=\text{sgn}{(x)}$.
+
+\subsection{定积分的性质}
+\subsubsection{线性性}
+\begin{equation}
+\int_a^b{\left[\sum_{i=1}^nc_if_i(x)\right]\text{d}x}=\sum_{i=1}^n\left[c_i\int_a^b{f_i(x)\text{d}x}\right]
+\end{equation}
+\subsubsection{乘积可积性}
+
+证明：$| f ( x )g(x)-f(y)g(y)|=|f(x)g(x)-f(y)g(x)+f(y)g(x)-f(y)g(y)|\leqslant|g(x)||f(x)-f(y)|+|f(y)||g(x)-g(y)|\leqslant{}M(\omega_f+\omega_g)$，即$\omega_{f·g}\leqslant{}M(\omega_f+\omega_g)$，仍然满足达布积分的充要条件。
+
+\subsubsection{子区间可积性}
+\subsubsection{积分区间可加性}
+\begin{equation}
+\int_{c_0}^{c_n}{f(x)\text{d}x}=\sum_{i=0}^{n-1}{}\int_{c_i}^{c_{i+1}}{f(x)\text{d}x}
+\end{equation}
+\subsubsection{保序性}
+\begin{equation}
+f(x)\geqslant{}g(x)\Rightarrow\int_a^b{f(x)\text{d}x}\geqslant\int_a^b{g(x)\text{d}x}
+\end{equation}
+
+若$f(x),g(x)\in{}C[a,b]$且$f(x)\not\equiv{}g(x)$，不取等号。
+\subsubsection{第一积分中值定理}
+若$f(x)\in{}C[a,b],\phi(x)$可积且不变号，则至少存在一点$\xi\in[a,b]$，使
+\begin{equation}
+\int_a^b{f(x)\phi(x)\text{d}x}=f(\xi)\int_a^b{\phi(x)\text{d}x}
+\end{equation}
+
+证明：介值定理。
+
+推论：若$f(x)\in{}C[a,b]$，则至少存在一点$\xi\in[a,b]$，使
+\begin{equation}
+\int_a^b{f(x)\text{d}x}=f(\xi)(b-a)
+\end{equation}
+
+\subsection{微积分基本定理}
+\subsubsection{变上限积分}
+定义：$\displaystyle\int_a^{f(x)}g(t)\text{d}t$.
+
+下面以简单的$\displaystyle\int_a^{x}f(t)\text{d}t$形式为例来罗列变上限积分的性质。
+
+（1）(连续性)若$f(x)$在$[a,b]$上可积，则$\displaystyle\int_a^{x}f(t)\text{d}t$在$[a,b]$上连续。
+
+（2）(逐点求导)若$f(x)$在$[a,b]$上可积，在$x=x_0$处连续，则$\displaystyle\varphi(x)=\int_a^{x}f(t)\text{d}t$在$x=x_0$处可导，且$\varphi'(x_0)=f(x_0)$。
+
+（3）(复合函数求导)若$f(x)\in{}C[a,b]$，$u(x),v(x)$在$[\alpha,\beta]$内可微，且$u,v((\alpha,\beta))\subseteq[a,b]$，则$\displaystyle\psi(x)=\int_{v(x)}^{u(x)}{f(t)\text{d}t}$在$x\in(\alpha,\beta)$可微，且有
+
+\begin{equation}
+\psi'(x)=f[u(x)]u'(x)-f[v(x)]v'(x)
+\end{equation}
+
+[举例]
+
+（1）$\displaystyle{}g(x)\in{}C[a,b],\psi(x)=\int_a^b{|x-t|g(t)\text{d}t}$，求$\psi'(t),\psi''(t)$.\\\\
+
+（2）$f(x)$在$[0,1]$上可微，当$0\leqslant{}x<1$时，恒有$0<f(1)<f(x)$，且$f'(x)\neq{}f(x)$，求证：存在唯一的$\displaystyle\xi\in(0,1),\text{s.t.}f(\xi)=\int_0^{\xi}{f(t)\text{d}t}$.\\\\
+
+（3）设$\displaystyle{}y=\int_0^{1+\sin{t}}{(1+e^{\frac{1}{u}})\text{d}u}$，$t=t(x)$由
+$\left\{\begin{array}{ll}
+
+x=\cos{2v},\\
+
+t=\sin{v}.
+
+\end{array}\right.$
+确定，求$\displaystyle\frac{\text{d}y}{\text{d}x}$.\\\\
+
+（4）求$\displaystyle\lim_{x\rightarrow0}{\frac{\int_0^x{(x-t)\sin{t^2}\text{d}t}}{(x^2+x^3)(1-\sqrt{1-x^2})}}$.\\\\
+
+（5）
+
+\newpage
+
+图片如\ref{fig1}所示.
+\begin{figure}[!t]
+\centering
+%\includegraphics{fig1.eps}
+\cnenfigcaption{图题}{Caption}
+\label{fig1}
+\end{figure}
+
+\subsection{二级标题}
+表格如表\ref{tab1}所示.
+\begin{table}[!t]
+\cnentablecaption{表题}{Caption}
+\label{tab1}
+\footnotesize
+\tabcolsep 49pt %space between two columns. 用于调整列间距
+\begin{tabular*}{\textwidth}{cccc}
+\toprule
+  Title a & Title b & Title c & Title d \\\hline
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+\subsubsection{三级标题}
+算法如算法\ref{alg1}所示.
+\begin{algorithm}
+%\floatname{algorithm}{Algorithm}%更改算法前缀名称
+\renewcommand{\algorithmicrequire}{\textbf{输入:}}% 更改输入名称
+\renewcommand{\algorithmicensure}{\textbf{主迭代:}}% 更改输出名称
+\newcommand{\LASTCON}{\item[\algorithmiclastcon]}
+\newcommand{\algorithmiclastcon}{\textbf{输出:}}% 更改输出名称
+\footnotesize
+\caption{算法标题}
+\label{alg1}
+\begin{algorithmic}[1]
+    \REQUIRE $n \geq 0 \vee x \neq 0$;
+    \ENSURE $y = x^n$;
+    \STATE $y \Leftarrow 1$;
+    \IF{$n < 0$}
+        \STATE $X \Leftarrow 1 / x$;
+        \STATE $N \Leftarrow -n$;
+    \ELSE
+        \STATE $X \Leftarrow x$;
+        \STATE $N \Leftarrow n$;
+    \ENDIF
+    \WHILE{$N \neq 0$}
+        \IF{$N$ is even}
+            \STATE $X \Leftarrow X \times X$;
+            \STATE $N \Leftarrow N / 2$;
+        \ELSE[$N$ is odd]
+            \STATE $y \Leftarrow y \times X$;
+            \STATE $N \Leftarrow N - 1$;
+        \ENDIF
+    \ENDWHILE
+    \LASTCON
+\end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 致谢
+%%% 非必选
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\Acknowledgements{致谢.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 补充材料说明
+%%% 非必选
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\Supplements{补充材料.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 参考文献, {}为引用的标签, 数字/字母均可
+%%% 文中上标引用: \upcite{1,2}
+%%% 文中正常引用: \cite{1,2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+
+\bibitem{ref} Author A, Author B, Author C. Reference title. Journal, Year, Vol: Number or pages
+
+\bibitem{author} 张三, 李四, Author C, et al. Reference title. In: Proceedings of Conference, Place, Year. Number or pages
+
+\end{thebibliography}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 附录章节, 自动从A编号, 以\section开始一节
+%%% 非必选
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{appendix}
+%\section{附录}
+%附录从这里开始.
+%\begin{figure}[H]
+%\centering
+%%\includegraphics{fig1.eps}
+%\cnenfigcaption{附录里的图}{Caption}
+%\label{fig1}
+%\end{figure}
+%\end{appendix}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 自动生成英文标题部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeentitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 主要作者英文简介, 数量不超过4个
+%%% \authorcv[zp1.eps]{Ming XING}{was born in ...}
+%%% [照片文件名]请提供清晰的一寸浅色背景照片, 宽高比为 25:35
+%%% {姓名}与英文标题处一致
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcv[]{Ming XING}{was born in ...}
+
+\authorcv[]{Ming XING}{was born in ...}
+
+%\vspace*{6mm} % 调整照片行间距
+
+\authorcv[]{Ming XING}{was born in ...}
+
+\authorcv[]{Ming XING}{was born in ...}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 补充材料, 以附件形式作网络在线, 不出现在印刷版中
+%%% 不做加工和排版, 仅用于获得图片和表格编号
+%%% 自动从I编号, 以\section开始一节
+%%% 可以没有\section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{supplement}
+%\section{supplement1}
+%自动从I编号, 以section开始一节.
+%\begin{figure}[H]
+%\centering
+%\includegraphics{fig1.eps}
+%\cnenfigcaption{补充材料里的图}{Caption}
+%\label{fig1}
+%\end{figure}
+%\end{supplement}
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 本模板使用的latex排版示例
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 章节
+\section{}
+\subsection{}
+\subsubsection{}
+
+
+%%% 普通列表
+\begin{itemize}
+\item Aaa aaa.
+\item Bbb bbb.
+\item Ccc ccc.
+\end{itemize}
+
+%%% 自由编号列表
+\begin{itemize}
+\itemindent 4em
+\item[(1)] Aaa aaa.
+\item[(2)] Bbb bbb.
+\item[(3)] Ccc ccc.
+\end{itemize}
+
+%%% 定义、定理、引理、推论等, 可用下列标签
+%%% definition 定义
+%%% theorem 定理
+%%% lemma 引理
+%%% corollary 推论
+%%% axiom 公理
+%%% propsition 命题
+%%% example 例
+%%% exercise 习题
+%%% solution 解名
+%%% notation 注
+%%% assumption 假设
+%%% remark 注释
+%%% property 性质
+%%% []中的名称可以省略, \label{引用名}可在正文中引用
+\begin{definition}[定义名]\label{def1}
+定义内容.
+\end{definition}
+
+
+
+%%% 单图
+%%% 可在文中使用图\ref{fig1}引用图编号
+\begin{figure}[!t]
+\centering
+\includegraphics{fig1.eps}
+\cnenfigcaption{中文图题}{Caption}
+\label{fig1}
+\end{figure}
+
+%%% 并排图
+%%% 可在文中使用图\ref{fig1}、图\ref{fig2}引用图编号
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{fig1.eps}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{fig2.eps}
+\end{minipage}\\[3mm]
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\cnenfigcaption{中文图题1}{Caption1}
+\label{fig1}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\cnenfigcaption{中文图题2}{Caption2}
+\label{fig2}
+\end{minipage}
+\end{figure}
+
+%%% 并排子图
+%%% 需要英文分图题 (a)...; (b)...
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{subfig1.eps}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{subfig2.eps}
+\end{minipage}
+\cnenfigcaption{中文图题}{Caption}
+\label{fig1}
+\end{figure}
+
+%%% 算法
+%%% 可在文中使用 算法\ref{alg1} 引用算法编号
+\begin{algorithm}
+%\floatname{algorithm}{Algorithm}%更改算法前缀名称
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}% 更改输入名称
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}% 更改输出名称
+\footnotesize
+\caption{算法标题}
+\label{alg1}
+\begin{algorithmic}[1]
+    \REQUIRE $n \geq 0 \vee x \neq 0$;
+    \ENSURE $y = x^n$;
+    \STATE $y \Leftarrow 1$;
+    \IF{$n < 0$}
+        \STATE $X \Leftarrow 1 / x$;
+        \STATE $N \Leftarrow -n$;
+    \ELSE
+        \STATE $X \Leftarrow x$;
+        \STATE $N \Leftarrow n$;
+    \ENDIF
+    \WHILE{$N \neq 0$}
+        \IF{$N$ is even}
+            \STATE $X \Leftarrow X \times X$;
+            \STATE $N \Leftarrow N / 2$;
+        \ELSE[$N$ is odd]
+            \STATE $y \Leftarrow y \times X$;
+            \STATE $N \Leftarrow N - 1$;
+        \ENDIF
+    \ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+%%% 简单表格
+%%% 可在文中使用 表\ref{tab1} 引用表编号
+\begin{table}[!t]
+\cnentablecaption{表题}{Caption}
+\label{tab1}
+\footnotesize
+\tabcolsep 49pt %space between two columns. 用于调整列间距
+\begin{tabular*}{\textwidth}{cccc}
+\toprule
+  Title a & Title b & Title c & Title d \\\hline
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+%%% 换行表格
+\begin{table}[!t]
+\cnentablecaption{表题}{Caption}
+\label{tab1}
+\footnotesize
+\def\tabblank{\hspace*{10mm}} %blank leaving of both side of the table. 左右两边的留白
+\begin{tabularx}{\textwidth} %using p{?mm} to define the width of a column. 用p{?mm}控制列宽
+{@{\tabblank}@{\extracolsep{\fill}}cccp{100mm}@{\tabblank}}
+\toprule
+  Title a & Title b & Title c & Title d \\\hline
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.
+
+  Ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd.\\
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.\\
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%%% 单行公式
+%%% 可在文中使用 (\ref{eq1})式 引用公式编号
+%%% 如果是句子开头, 使用 公式(\ref{eq1}) 引用
+\begin{equation}
+A(d,f)=d^{l}a^{d}(f),
+\label{eq1}
+\end{equation}
+
+%%% 不编号的单行公式
+\begin{equation}
+\nonumber
+A(d,f)=d^{l}a^{d}(f),
+\end{equation}
+
+%%% 公式组
+\begin{eqnarray}
+\nonumber
+&X=[x_{11},x_{12},\ldots,x_{ij},\ldots ,x_{n-1,n}]^{\rm T},\\
+\nonumber
+&\varepsilon=[e_{11},e_{12},\ldots ,e_{ij},\ldots ,e_{n-1,n}],\\
+\nonumber
+&T=[t_{11},t_{12},\ldots ,t_{ij},\ldots ,t_{n-1,n}].
+\end{eqnarray}
+
+%%% 条件公式
+\begin{eqnarray}
+\sum_{j=1}^{n}x_{ij}-\sum_{k=1}^{n}x_{ki}=
+\left\{
+\begin{aligned}
+1,&\quad i=1,\\
+0,&\quad i=2,\ldots ,n-1,\\
+-1,&\quad i=n.
+\end{aligned}
+\right.
+\label{eq1}
+\end{eqnarray}
+
+%%% 其他格式
+\footnote{Comments.} %footnote. 脚注
+\raisebox{-1pt}[0mm][0mm]{xxxx} %put xxxx upper or lower. 控制xxxx的垂直位置
+
+%%% 图说撑满
+\Caption\protect\linebreak \leftline{Caption}

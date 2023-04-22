@@ -1,0 +1,17 @@
+%---------------------字体设置--------------------%
+
+% 注意：如果希望使用\ctexset 在导言区指定字库，则需要先在宏包/文档类选项中指定fontset = none（这会禁用CTEX 宏集的操作系统检测功能和自动设定字库功能）
+\setCJKmainfont[ItalicFont={FZKai-Z03},BoldFont={FZHei-B01},BoldItalicFont=FZLiShu-S01S]{FZShuSong-Z01}%设置正文字体为宋体，其粗体为黑体、斜体为楷体、粗斜为隶书，全文的一种设置
+\setCJKsansfont{FZHei-B01}%设置无衬线字体为黑体
+% \setCJKmonofont{}%设置打字机字体
+%设置字体族
+\setCJKfamilyfont{zhsong}{FZShuSong-Z01}
+\setCJKfamilyfont{zhhei}{FZHei-B01}
+\setCJKfamilyfont{zhkai}{FZKai-Z03}
+\setCJKfamilyfont{zhfs}{FZFangSong-Z02}
+%带*的\newcommand*不能有\par
+\def\songti{\CJKfamily{zhsong}} % 宋体
+\def\heiti{\CJKfamily{zhhei}} % 黑体
+\def\kaishu{\CJKfamily{zhkai}} % 楷书
+\def\fangsong{\CJKfamily{zhfs}} % 仿宋
+%--------------------------------------------------%

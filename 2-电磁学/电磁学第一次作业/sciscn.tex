@@ -1,0 +1,799 @@
+% !TeX encoding = UTF-8
+% !TeX program = xelatex
+% !TeX spellcheck = en_US
+
+%-----------------------------------------------------------------------
+% 中国科学: 信息科学 中文模板, 请用 CCT-LaTeX 编译
+% http://scis.scichina.com
+% 南开大学程明明注释：也可以在Overleaf中使用XeLaTeX直接编译，
+% 例如：
+%-----------------------------------------------------------------------
+\documentclass{SCIS2020cn}
+\usepackage{amsthm,amsmath,amssymb,tikz}
+\usepackage{mathrsfs}
+\newcommand*{\num}{pi}
+ % define the plot style and the axis style
+\tikzset{elegant/.style={smooth,thick,samples=50,cyan}}
+\tikzset{eaxis/.style={->,>=stealth}}
+%\usepackage{breakurl}
+%\captionsetup[subfloat]{labelformat=simple,captionskip=0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者附加的定义
+%%% 常用环境已经加载好, 不需要重复加载
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 开始
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者不需要修改此处信息
+\ArticleType{电磁学C作业}
+%\SpecialTopic{}
+%\Luntan{中国科学院学部\quad 科学与技术前沿论坛}
+\Year{2020}
+\Vol{50}
+\No{1}
+\BeginPage{1}
+\DOI{}
+\ReceiveDate{}
+\ReviseDate{}
+\AcceptDate{}
+\OnlineDate{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{黄瑞轩}{黄瑞轩}
+
+\entitle{Title}{Title for citation}
+
+\author[]{黄瑞轩}{}
+
+\enauthor[1]{Mingming XING}{{ }}
+
+\address[1]{ }
+
+\enaddress[1]{Affiliation, City {\rm 000000}, Country}
+
+\AuthorMark{电磁学C作业}
+
+\AuthorCitation{ }
+\enAuthorCitation{ }
+
+%\comment{\dag~同等贡献}
+%\encomment{\dag~Equal contribution}
+
+\maketitle
+\newpage
+
+\part{电力与电场}
+
+\section{习题1.2}
+该单位换算具有线性关系，不妨取
+\begin{equation}
+    q_1=q_2=1\text{C},r=1\text{m}
+\end{equation}
+
+在国际单位制下
+\begin{equation}
+    F=kq_1q_2/r^2=9×10^9\text{N}
+\end{equation}
+
+在该单位制下
+\begin{equation}
+    1\text{N}=10^5\text{N}'\text{，}F'=x^2/100^2
+\end{equation}
+
+则有
+\begin{equation}
+    F'=10^5F
+\end{equation}
+
+解得
+\begin{equation}
+    x=3×10^9
+\end{equation}
+
+即
+\begin{equation}
+    1\text{C}=3×10^9{\text{esu}}
+\end{equation}
+
+由此转换得到
+\begin{equation}
+    e=4.774×10^{-10}\text{esu}=1.591×10^{-19}\text{C}
+\end{equation}
+
+\section{习题1.4}
+质子质量$m_p=1.67×10^{-27}$kg，中子质量$m_n=1.67×10^{-27}$kg，电子质量$m_e=9.11×10^{-31}$kg，人体质量$m=50$kg。
+
+设人体质子数为$N$，不妨设电子数为$(1-10^{-8})N$，则
+\begin{equation}
+    m_pN+m_nN+m_e(1-10^{-8})N=m
+\end{equation}
+
+解得
+\begin{equation}
+    N=1.49×10^{28}
+\end{equation}
+
+
+人体静带电量
+\begin{equation}
+    Q=10^{-8}Ne=23.8\text{C}
+\end{equation}
+
+此时静电力
+\begin{equation}
+    F=kQ^2/r^2=5.1×10^{12}\text{N}
+\end{equation}
+
+万有引力
+\begin{equation}
+    F_\text{引}=Gm_1m_2/r^2=1.67×10^{-7}\text{N}
+\end{equation}
+
+二者之比
+\begin{equation}
+    \displaystyle\frac{F}{F_{\text{引}}}=3.05×10^{19}
+\end{equation}
+
+
+若二者之比为10000，则静电力
+\begin{equation}
+    F'=1.67×10^{-3}\text{N}
+\end{equation}
+
+则可倒推算出
+\begin{equation}
+    q_1=q_2=4.31×10^{-7}\text{C}
+\end{equation}
+
+则
+\begin{equation}
+    \Delta{N}=q_1/e=2.69×10^{12}
+\end{equation}
+
+再可倒推算出
+\begin{equation}
+    N=1.49×10^{28}
+\end{equation}
+
+偏差
+\begin{equation}
+    \displaystyle\delta=\frac{\Delta{N}}{N}=1.8×10^{-16}
+\end{equation}
+
+
+\section{习题1.6}
+$\displaystyle F=\int_0^{+\infty}\int_0^Q{\left[\frac{k\text{d}q\text{d}Q}{(\sqrt{R^2+r^2})^2}·\frac{r}{\sqrt{R^2+r^2}}\right]}=\frac{\lambda kQ}{R}$，其中$\text{d}q=\lambda\text{d}r$.
+
+\section{习题1.8}
+将$q_1$视为静止，则$q_2$的约化质量
+\begin{equation}
+    \mu=\frac{m_1m_2}{m_1+m_2}
+\end{equation}
+
+则$q_2$的运动方程为
+\begin{equation}
+    \frac{kq_1q_2}{x^2}=\mu{\ddot{x}}
+\end{equation}
+
+积分变换：
+\begin{equation}
+    \ddot{x}=\frac{\text{d}\dot{x}}{\text{d}t}·\dot{x}
+\end{equation}
+
+所以方程变为
+\begin{equation}
+    \frac{kq_1q_2\text{d}x}{x^2}=\mu\dot{x}\text{d}\dot{x}
+\end{equation}
+
+积分得到
+\begin{equation}
+    \displaystyle kq_1q_2\left(\frac{1}{r_0}-\frac{1}{x}\right)=\frac{1}{2}\mu(\dot{x})^2
+\end{equation}
+
+变形为
+\begin{equation}
+    \text{d}t=\frac{\text{d}x}{\sqrt{\frac{kq_1q_2\left(\frac{1}{r_0}-\frac{1}{x}\right)}{\frac{1}{2}\mu}}}
+\end{equation}
+
+
+积分得到
+\begin{equation}
+    t=\pi\sqrt{\frac{\mu{r_0^3}}{8kq_1q_2}}
+\end{equation}
+
+或者，这二体之间的关系应当满足类似开普勒第三定律的规律。
+
+当$q_2$绕$q_1$做半径为$r=r_0/2$匀速圆周运动时，有
+\begin{equation}
+    \frac{kq_1q_2}{r^2}=\mu\frac{4\pi^2}{T^2}r
+\end{equation}
+
+解得
+\begin{equation}
+    T=\pi\sqrt{\frac{\mu{r_0^3}}{2kq_1q_2}}
+\end{equation}
+
+所求
+\begin{equation}
+    t=\frac{1}{2}T=\pi\sqrt{\frac{\mu{r_0^3}}{8kq_1q_2}}
+\end{equation}
+
+\section{习题1.10}
+先求当$r\geq{}R$时的情况，取高度为$\text{d}z$的小圆柱体，则
+\begin{equation}
+    \displaystyle\text{d}Q=\int_0^R\rho·2\pi{}r\text{d}r\text{d}z
+\end{equation}
+
+
+由对称性，$z$方向的电场强度将被抵消，仅有半径方向的$E$参与叠加。
+
+则
+\begin{equation}
+    \text{d}E=\frac{k\text{d}Q}{{z^2+r^2}}·\frac{r}{\sqrt{z^2+r^2}}
+\end{equation}
+
+则
+\begin{equation}
+    E=\int_{-\infty}^{+\infty}\text{d}E=\frac{4k\pi}{r}\left(\frac{1}{3}aR^3-\frac{1}{5}bR^5\right)
+\end{equation}
+
+则当$r<R$时
+\begin{equation}
+    E=4k\pi\left(\frac{1}{3}ar^2-\frac{1}{5}br^4\right)
+\end{equation}
+
+\section{习题1.13}
+将半圆柱面分割成无数细长条，则每一细长条可看成无限长的导线。
+
+设每一根“导线”在$O$处产生的电场为$\text{d}E$。
+
+由高斯定理
+\begin{equation}
+    \text{d}E\iint_S\text{d}S=\int\frac{{\text{d}q}}{\varepsilon_0}=\frac{\sigma\text{d}z}{2\pi{}R\varepsilon_0}
+\end{equation}
+
+其中$\text{d}z=R\text{d}\theta$.
+
+则
+\begin{equation}
+    E=\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\cos{\theta}\text{d}E=\frac{\sigma}{\pi\varepsilon_0}
+\end{equation}
+
+
+或者，由对称性，平行方形截面方向的电场强度将被抵消，仅有垂直方向的$E$参与叠加。
+
+则
+\begin{equation}
+    E=\int_{-\infty}^{+\infty}\int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{k\text{d}q}{r^2+R^2}\cos{\theta}·\frac{R}{\sqrt{r^2+R^2}}=\frac{\sigma}{\pi\varepsilon_0}
+\end{equation}
+
+其中$\text{d}q=\sigma\text{d}r·R\text{d}\theta$.
+
+\section{习题1.15}
+取无穷远处为电势零点，令$\displaystyle\phi=\theta+\frac{\pi}{4}$，则电势
+\begin{equation}
+    U=kq\left(\frac{1}{r_1}+\frac{1}{r_2}-\frac{1}{r_3}-\frac{1}{r_4}\right)
+\end{equation}
+
+其中
+\begin{equation}
+    r_1=\frac{1}{\sqrt{r^2+2a^2-2\sqrt{2}ar\cos\phi}}
+\end{equation}
+\begin{equation}
+    r_2=\frac{1}{\sqrt{r^2+2a^2+2\sqrt{2}ar\cos\phi}}
+\end{equation}
+\begin{equation}
+    r_3=\frac{1}{\sqrt{r^2+2a^2-2\sqrt{2}ar\sin\phi}}
+\end{equation}
+\begin{equation}
+    r_4=\frac{1}{\sqrt{r^2+2a^2+2\sqrt{2}ar\sin\phi}}
+\end{equation}
+
+将$\displaystyle{}f(x)=\frac{1}{\sqrt{1+2x^2-2\sqrt{2}x\sin\phi}}$泰勒展开，保留三项，化简得
+\begin{equation}
+    U=-\frac{3kql^2\sin{2\theta}}{2r^3}
+\end{equation}
+
+故
+\begin{equation}
+    E=-\nabla{}U=-\bold{e_r}\frac{\partial}{\partial{}r}U-\bold{e_\theta}\frac{1}{r}\frac{\partial}{\partial{}\theta}U
+\end{equation}
+
+得
+\begin{equation}
+    E=-\bold{e_r}\frac{9kql^2\sin{2\theta}}{2r^4}+\bold{e_\theta}\frac{3kql^2\cos{2\theta}}{r^4}
+\end{equation}
+
+\section{习题1.18}
+取一横切面，以横切面圆心为原点$O$，指向狭缝方向为$x$正方形建立极坐标系。
+
+则坐标系上任意一点的电场可以看成是完整的圆柱的电场$E_1$与带相反电荷的狭缝的电场$E_2$的叠加。
+
+下面来求$E_1$，取高斯面为与原圆筒共轴的半径为$r$的圆筒面。
+
+当$r<R$时，电荷均在外部，由高斯定理知场强为零。
+
+当$r\geq{}R$时，由高斯定理
+\begin{equation}
+    E_1\iint_S\text{d}S=\int\frac{\text{d}Q}{\varepsilon_0}
+\end{equation}
+
+得
+\begin{equation}
+    E_1=\frac{R\sigma}{r\varepsilon_0}
+\end{equation}
+
+
+下面来求$E_2$，取高斯面为以狭缝为轴的圆筒面，半径为$r$。因为$a$很小，可以看成一条导线。
+
+由高斯定理
+\begin{equation}
+    E_2\iint_S\text{d}S=\int\frac{\text{d}Q}{\varepsilon_0}
+\end{equation}
+
+得
+\begin{equation}
+    E_2=\frac{a\sigma}{2\pi{}r\varepsilon_0}
+\end{equation}
+
+则
+\begin{equation}
+    \bold{E_{\text{内}}}=-\frac{a\sigma}{2\pi{}r'\varepsilon_0}\bold{e_{r'}}\text{，}\bold{E_{\text{外}}}=\frac{R\sigma}{r\varepsilon_0}\bold{e_r}-\frac{a\sigma}{2\pi{}r'\varepsilon_0}\bold{e_{r'}}
+\end{equation}
+
+其中$\bold{e_{r'}}$是以狭缝为原点，指向圆心方向建立极轴建立坐标系时的单位向量，$\bold{e_{r}}$是以圆心为原点，指向狭缝方向建立极轴建立坐标系时的单位向量。
+
+\section{习题1.21}
+取以原球心为球心，半径为$r<R$的球为高斯面。
+\begin{equation}
+    \displaystyle{}E\iint_S\text{d}S=\int\frac{\text{d}Q}{\varepsilon_0}
+\end{equation}
+
+\begin{equation}
+    \iint_S\text{d}S=4\pi{}r^2\text{，}\displaystyle{}\int\frac{\text{d}Q}{\varepsilon_0}=\int_0^r\left[\frac{4}{3}\pi(x+\text{d}x)^3-\frac{4}{3}\pi{}x^3\right]\frac{\rho_0e^{-kx}}{\varepsilon_0x}
+\end{equation}
+
+则
+\begin{equation}
+    E=\frac{\rho_0}{\varepsilon_0k^2r^2}[1-(kr+1)e^{-kr}]
+\end{equation}
+
+
+\section{习题1.24*}
+在那个宇宙中，仅让一静电力对一个电荷量为$q_0$的电荷做功，从$P$移到$Q$处。
+做功
+\begin{equation}
+    A=q_0\int_P^Q\bold{E}·\text{d}\bold{x}=q_0\int_{r_P}^{r_Q}\frac{kq\text{d}r}{4\pi\varepsilon_0r^3}=\frac{kqq_0}{8\pi\varepsilon_0}\left(\frac{1}{r_P^2}-\frac{1}{r_Q^2}\right)
+\end{equation}
+与路径无关。
+
+因此可定义电势
+\begin{equation}
+    U=\frac{A_{Q\rightarrow\infty}}{q_0}=\frac{kq}{8\pi\varepsilon_0r^2}
+\end{equation}
+
+
+事实上，这里我们默认该电场力是有心力，那么一定有$\bold{r}·\text{d}\bold{x}=r\text{d}r$，就可以定义势能。
+
+则平板对讨论点的势能
+\begin{equation}
+    \mathscr{U}=\lim_{R\rightarrow+\infty}\int_0^{R}\int_0^{2\pi}\frac{k\sigma{}r'\text{d}\theta\text{d}r'}{8\pi\varepsilon_0(r^2+r'^2)}=\lim_{R\rightarrow+\infty}\frac{k\sigma}{8\varepsilon_0}\ln\frac{R^2+r^2}{r^2}
+\end{equation}
+其中$r'$是极坐标下的哑元，$R$是选取的圆盘半径。
+
+可以看到这里再设置无限远处为电势零点并不适合，应取$r=r_0$有限点处为电势零点。则
+\begin{equation}
+    U=\frac{kq}{8\pi\varepsilon_0}\left(\frac{1}{r_0^2}-\frac{1}{r^2}\right)
+\end{equation}
+
+这样
+\begin{equation}
+    \mathscr{U}=\lim_{R\rightarrow+\infty}\frac{k\sigma}{8\varepsilon_0}\left(\ln\frac{R^2+r_0^2}{r_0^2}-\ln\frac{R^2+r^2}{r^2}\right)=\frac{k\sigma}{4\varepsilon_0}\ln\frac{r}{r_0}
+\end{equation}
+
+\section{习题1.25}
+由于是带电导体球，由导体的电荷分布知球壳的电荷都分布在表面。设外表面的电荷为$+(q+Q)$，内表面的电荷为$-q$，则内球的电荷量为$+q$。
+内球的电势为0，因此可列方程
+\begin{equation}
+    U=k\left(\frac{q+Q}{R_3}-\frac{q}{R_2}+\frac{q}{R_1}\right)=0
+\end{equation}
+
+解得
+\begin{equation}
+    q=\frac{R_1R_2}{R_1R_3-R_1R_2-R_2R_3}Q
+\end{equation}
+
+球内离球心$r>R_1$处的电场为
+\begin{equation}
+    E=\frac{kq}{r^2}
+\end{equation}
+
+则球壳电势为
+\begin{equation}
+    U=\int_{R_1}^{R_2}E\text{d}r=\frac{k(q+Q)}{R_3}
+\end{equation}
+
+【以下是错误做法，因为没看到是导体球】
+
+半径为$R$，带电量为$q$的球体在球心处产生的电势与在表面产生的电势相等（球体内部场强为0，因此做功为0），为
+\begin{equation}
+    U=\frac{kq}{R}
+\end{equation}
+
+
+不妨设题中球壳的电密度为$\rho$，则有
+\begin{equation}
+    Q=\rho·\frac{4\pi}{3}(R_3^3-R_2^3)
+\end{equation}
+
+则球壳在球心产生的电势
+\begin{equation}
+    U_1=\frac{kq_1}{R_3}-\frac{kq_2}{R_2}
+\end{equation}
+其中$\displaystyle{}q_1=\rho·\frac{4\pi{}R_3^3}{3}$，$\displaystyle{}q_2=\rho·\frac{4\pi{}R_2^3}{3}$。
+
+球体在球心产生的电势
+\begin{equation}
+    U_2=-\frac{kq_3}{R_1}
+\end{equation}
+
+又有
+\begin{equation}
+    U_1+U_2=0
+\end{equation}
+
+则
+\begin{equation}
+    q_3=\frac{R_1R_2+R_1R_3}{R_3^2+R_2R_3+R_2^2}Q
+\end{equation}
+
+【错误做法结束】
+\section{习题1.28}
+$\displaystyle{}U=\int\frac{k\text{d}q}{\sqrt{x^2+R^2}}=\frac{kQ}{\sqrt{x^2+R^2}}$，这里取无限远处为电势零点。
+
+\section{习题1.30}
+电子球电荷密度为
+\begin{equation}
+    \rho=\frac{Ze}{\frac{4}{3}\pi{}r_a^3}
+\end{equation}
+
+正电荷在$r$处产生的电势
+\begin{equation}
+    \varphi_1=\frac{Ze}{4\pi\varepsilon_0r}
+\end{equation}
+
+负电荷球体被分为两部分，内球在$r$处产生的电势
+\begin{equation}
+    \varphi_2=-\frac{\frac{4}{3}\pi{}r^3·\rho}{4\pi\varepsilon_0r}=-\frac{Zer^2}{4\pi\varepsilon_0r_a^3}
+\end{equation}
+
+外球在$r$处产生的电势
+\begin{equation}
+    \varphi_3=-\int_r^{r_a}\frac{\rho·\frac{4}{3}\pi\left[(r'+\text{d}r')^3-r'^3\right]}{4\pi\varepsilon_0r'}=-\frac{Ze}{4\pi\varepsilon_0r_a^3}·\left(\frac{3}{2}r_a^2-\frac{3}{2}r^2\right)
+\end{equation}
+
+故总电势
+\begin{equation}
+    \varphi=\sum_{i=1}^3\varphi_i=\frac{Ze}{4\pi\varepsilon_0}\left(\frac{1}{r}-\frac{3}{2r_a}+\frac{r^2}{2r_a^3}\right)
+\end{equation}
+
+\section{习题1.31}
+以球心为原点，细隧道方向为极轴$Ox$建立极坐标系，当$r=x,\theta=0$时，由牛顿第二定律可知
+\begin{equation}
+    -\frac{kq·\rho·\frac{4}{3}\pi{}x^3}{x^2}=m\ddot{x}
+\end{equation}
+
+化简为
+\begin{equation}
+    -\frac{q\rho}{3\varepsilon_0}x=m\ddot{x}
+\end{equation}
+
+因此该物体将做简谐运动，周期为
+\begin{equation}
+    T=2\pi\sqrt{\frac{3\varepsilon_0m}{q\rho}}
+\end{equation}
+
+\section{习题1.32}
+先来讨论无穷大平面的电场强度，设面密度为$\sigma$。
+
+取一圆柱为高斯面，则由高斯定理
+\begin{equation}
+    E·2S=\frac{S\sigma}{\varepsilon_0}
+\end{equation}
+
+则
+\begin{equation}
+    E=\frac{\sigma}{2\varepsilon_0}
+\end{equation}
+
+可知无限大平面产生匀强电场，则在平板层外一点，电场强度
+\begin{equation}
+    \mathscr{E}=\int_0^dE\text{d}r
+\end{equation}
+
+得到
+\begin{equation}
+    \mathscr{E}=\frac{\rho{}d}{2\varepsilon_0}
+\end{equation}
+
+在平板层内一点，离原点距离为$x$处，电场强度
+\begin{equation}
+    \mathscr{E}=\int_{-\frac{d}{2}}^xE\text{d}r-\int_x^{\frac{d}{2}}E\text{d}r
+\end{equation}
+
+得到
+\begin{equation}
+    \mathscr{E}=\frac{\rho{}x}{\varepsilon_0}
+\end{equation}
+
+$E(x)-x$图如下：
+
+\begin{center}
+\begin{tikzpicture}
+    % draw the axis
+   \draw[eaxis] (-\num,0) -- (\num,0) node[below] {$x$};
+   \draw[eaxis] (0,-1.5) -- (0,1.5) node[above] {$E(x)$};
+    % draw the function (piecewise)
+    \draw[blue,domain=-1:1] plot(\x,\x);
+    \draw[blue,domain=1:3] plot(\x,1);
+    \draw[blue,domain=-3:-1] plot(\x,-1);
+    \fill (1,1) circle (2pt) node at (1.6,0.5){$(\frac{d}{2},\frac{\rho{}d}{2\varepsilon_0})$};%画点
+   
+\end{tikzpicture}
+\end{center}
+
+\section{习题1.34}
+若平板补齐，则产生的电场为
+\begin{equation}
+    E_1=\frac{\sigma}{2\varepsilon_0}
+\end{equation}
+
+带负电的圆盘对$P$点的电场为
+\begin{equation}
+    E_2=\int_0^r\int_0^{2\pi}\frac{k\sigma{}r'\text{d}r'\text{d}\theta}{r'^2+x^2}·\frac{x}{\sqrt{r'^2+x^2}}=\frac{\sigma}{2\varepsilon_0}\left(1-\frac{x}{\sqrt{x^2+r^2}}\right)
+\end{equation}
+
+故$P$点电场为
+\begin{equation}
+    E=E_1-E_2=\frac{\sigma}{2\varepsilon_0}·\frac{x}{\sqrt{x^2+r^2}}
+\end{equation}
+
+电势为
+\begin{equation}
+    U=\int_0^xE\text{d}x=\frac{\sigma}{2\varepsilon_0}(\sqrt{x^2+r^2}-r)
+\end{equation}
+
+\section{习题1.36}
+取一共轴圆筒面为高斯面，半径为$r$。
+
+当$r>R_2$时，由高斯定理
+\begin{equation}
+    E·2\pi{}rl=\frac{2\pi{}R_1l\lambda_1+2\pi{}R_2l\lambda_2}{\varepsilon_0}
+\end{equation}
+
+得到
+\begin{equation}
+    E=\frac{R_1\lambda_1+R_2\lambda_2}{r\varepsilon_0}
+\end{equation}
+
+当$R_1<r<R_2$时，由高斯定理
+\begin{equation}
+    E·2\pi{}rl=\frac{2\pi{}R_1l\lambda_1}{\varepsilon_0}
+\end{equation}
+
+得到
+\begin{equation}
+    E=\frac{R_1\lambda_1}{r\varepsilon_0}
+\end{equation}
+
+当$r<R_1$时，由高斯定理
+\begin{equation}
+    E=0
+\end{equation}
+
+若$\lambda_1=-\lambda_2$，仅$r>R_2$时的场强需要修改为
+\begin{equation}
+    E=\frac{(R_1-R_2)\lambda_1}{r\varepsilon_0}
+\end{equation}
+
+\end{document}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 本模板使用的latex排版示例
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 章节
+\section{}
+\subsection{}
+\subsubsection{}
+
+
+%%% 普通列表
+\begin{itemize}
+    \item Aaa aaa.
+    \item Bbb bbb.
+    \item Ccc ccc.
+\end{itemize}
+
+%%% 自由编号列表
+\begin{itemize}
+    \itemindent 4em
+    \item[(1)] Aaa aaa.
+    \item[(2)] Bbb bbb.
+    \item[(3)] Ccc ccc.
+\end{itemize}
+
+
+%%% 单图
+%%% 可在文中使用图\ref{fig1}引用图编号
+\begin{figure}[!t]
+    \centering
+    \includegraphics{fig1.eps}
+    \cnenfigcaption{中文图题}{Caption}
+    \label{fig1}
+\end{figure}
+
+%%% 并排图
+%%% 可在文中使用图\ref{fig1}、图\ref{fig2}引用图编号
+\begin{figure}[!t]
+    \centering
+    \begin{minipage}[c]{0.48\textwidth}
+        \centering
+        \includegraphics{fig1.eps}
+    \end{minipage}
+    \hspace{0.02\textwidth}
+    \begin{minipage}[c]{0.48\textwidth}
+        \centering
+        \includegraphics{fig2.eps}
+    \end{minipage}\\[3mm]
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \cnenfigcaption{中文图题1}{Caption1}
+        \label{fig1}
+    \end{minipage}
+    \hspace{0.02\textwidth}
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \cnenfigcaption{中文图题2}{Caption2}
+        \label{fig2}
+    \end{minipage}
+\end{figure}
+
+%%% 并排子图
+%%% 需要英文分图题 (a)...; (b)...
+\begin{figure}[!t]
+    \centering
+    \begin{minipage}[c]{0.48\textwidth}
+        \centering
+        \includegraphics{subfig1.eps}
+    \end{minipage}
+    \hspace{0.02\textwidth}
+    \begin{minipage}[c]{0.48\textwidth}
+        \centering
+        \includegraphics{subfig2.eps}
+    \end{minipage}
+    \cnenfigcaption{中文图题}{Caption}
+    \label{fig1}
+\end{figure}
+
+%%% 算法
+%%% 可在文中使用 算法\ref{alg1} 引用算法编号
+\begin{algorithm}
+    %\floatname{algorithm}{Algorithm}%更改算法前缀名称
+    %\renewcommand{\algorithmicrequire}{\textbf{Input:}}% 更改输入名称
+    %\renewcommand{\algorithmicensure}{\textbf{Output:}}% 更改输出名称
+    \footnotesize
+    \caption{算法标题}
+    \label{alg1}
+    \begin{algorithmic}[1]
+        \REQUIRE $n \geq 0 \vee x \neq 0$;
+        \ENSURE $y = x^n$;
+        \STATE $y \Leftarrow 1$;
+        \IF{$n < 0$}
+        \STATE $X \Leftarrow 1 / x$;
+        \STATE $N \Leftarrow -n$;
+        \ELSE
+        \STATE $X \Leftarrow x$;
+        \STATE $N \Leftarrow n$;
+        \ENDIF
+        \WHILE{$N \neq 0$}
+        \IF{$N$ is even}
+        \STATE $X \Leftarrow X \times X$;
+        \STATE $N \Leftarrow N / 2$;
+        \ELSE[$N$ is odd]
+        \STATE $y \Leftarrow y \times X$;
+        \STATE $N \Leftarrow N - 1$;
+        \ENDIF
+        \ENDWHILE
+    \end{algorithmic}
+\end{algorithm}
+
+%%% 简单表格
+%%% 可在文中使用 表\ref{tab1} 引用表编号
+\begin{table}[!t]
+    \cnentablecaption{表题}{Caption}
+    \label{tab1}
+    \footnotesize
+    \tabcolsep 49pt %space between two columns. 用于调整列间距
+    \begin{tabular*}{\textwidth}{cccc}
+        \toprule
+        Title a & Title b & Title c & Title d \\\hline
+        Aaa & Bbb & Ccc & Ddd\\
+        Aaa & Bbb & Ccc & Ddd\\
+        Aaa & Bbb & Ccc & Ddd\\
+        \bottomrule
+    \end{tabular*}
+\end{table}
+
+%%% 换行表格
+\begin{table}[!t]
+    \cnentablecaption{表题}{Caption}
+    \label{tab1}
+    \footnotesize
+    \def\tabblank{\hspace*{10mm}} %blank leaving of both side of the table. 左右两边的留白
+    \begin{tabularx}{\textwidth} %using p{?mm} to define the width of a column. 用p{?mm}控制列宽
+        {@{\tabblank}@{\extracolsep{\fill}}cccp{100mm}@{\tabblank}}
+        \toprule
+        Title a & Title b & Title c & Title d                                                                                        \\\hline
+        Aaa     & Bbb     & Ccc     & Ddd ddd ddd ddd.
+
+        Ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd. \\
+        Aaa     & Bbb     & Ccc     & Ddd ddd ddd ddd.                                                                               \\
+        Aaa     & Bbb     & Ccc     & Ddd ddd ddd ddd.                                                                               \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+%%% 单行公式
+%%% 可在文中使用 (\ref{eq1})式 引用公式编号
+%%% 如果是句子开头, 使用 公式(\ref{eq1}) 引用
+\begin{equation}
+    A(d,f)=d^{l}a^{d}(f),
+    \label{eq1}
+\end{equation}
+
+%%% 不编号的单行公式
+\begin{equation}
+    \nonumber
+    A(d,f)=d^{l}a^{d}(f),
+\end{equation}
+
+%%% 公式组
+\begin{eqnarray}
+    \nonumber
+    &X=[x_{11},x_{12},\ldots,x_{ij},\ldots ,x_{n-1,n}]^{\rm T},\\
+    \nonumber
+    &\varepsilon=[e_{11},e_{12},\ldots ,e_{ij},\ldots ,e_{n-1,n}],\\
+    \nonumber
+    &T=[t_{11},t_{12},\ldots ,t_{ij},\ldots ,t_{n-1,n}].
+\end{eqnarray}
+
+%%% 条件公式
+\begin{eqnarray}
+    \sum_{j=1}^{n}x_{ij}-\sum_{k=1}^{n}x_{ki}=
+    \left\{
+    \begin{aligned}
+        1,  & \quad i=1,             \\
+        0,  & \quad i=2,\ldots ,n-1, \\
+        -1, & \quad i=n.
+    \end{aligned}
+    \right.
+    \label{eq1}
+\end{eqnarray}
+
+%%% 其他格式
+\footnote{Comments.} %footnote. 脚注
+\raisebox{-1pt}[0mm][0mm]{xxxx} %put xxxx upper or lower. 控制xxxx的垂直位置
+
+%%% 图说撑满
+\Caption\protect\linebreak \leftline{Caption}

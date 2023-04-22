@@ -1,0 +1,209 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.1.22)  19 JUN 2021 09:25
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**main.tex
+(./main.tex
+LaTeX2e <2020-10-01> patch level 4
+L3 programming layer <2021-01-09> xparse <2020-03-03> (./CLGPY.cls
+Document Class: CLGPY 
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/ctex/ctexart.cls
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/ctex/config/ctexbacke
+nd.cfg
+File: ctexbackend.cfg 2020/10/19 v2.5.5 Backend configuration file (CTEX)
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2021-01-09 L3 programming layer (loader) 
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-p
+dftex.def
+File: l3backend-pdftex.def 2021-01-09 L3 backend support: PDF output (pdfTeX)
+\l__kernel_color_stack_int=\count177
+\l__pdf_internal_box=\box47
+))
+Document Class: ctexart 2020/10/19 v2.5.5 Chinese adapter for class article (CT
+EX)
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/l3packages/xparse/xpa
+rse.sty
+Package: xparse 2020-10-27 L3 Experimental document command parser
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/l3packages/xparse/xpa
+rse-generic.tex))
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/l3packages/l3keys2e/l
+3keys2e.sty
+Package: l3keys2e 2020-10-27 LaTeX2e option processing using LaTeX3 keys
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/ctex/ctexhook.sty
+Package: ctexhook 2020/10/19 v2.5.5 Document and package hooks (CTEX)
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/ctex/ctexpatch.sty
+Package: ctexpatch 2020/10/19 v2.5.5 Patching commands (CTEX)
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/base/fix-cm.sty
+Package: fix-cm 2015/01/14 v1.1t fixes to LaTeX
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/base/ts1enc.def
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding TS1 on input line 47.
+))
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/everysel/everysel.sty
+Package: everysel 2021/01/18 v2.0 EverySelectfont Package (MS)
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/everysel/everysel-201
+1-10-28.sty))
+\l__ctex_tmp_int=\count178
+\l__ctex_tmp_box=\box48
+\l__ctex_tmp_dim=\dimen138
+\g__ctex_section_depth_int=\count179
+\g__ctex_font_size_int=\count180
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/ctex/config/ctexopts.
+cfg
+File: ctexopts.cfg 2020/10/19 v2.5.5 Option configuration file (CTEX)
+)
+
+Package ctex Warning: UTF8 will be used as the default encoding.
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count181
+\c@section=\count182
+\c@subsection=\count183
+\c@subsubsection=\count184
+\c@paragraph=\count185
+\c@subparagraph=\count186
+\c@figure=\count187
+\c@table=\count188
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen139
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/ctex/engine/ctex-engi
+ne-pdftex.def
+File: ctex-engine-pdftex.def 2020/10/19 v2.5.5 (pdf)LaTeX adapter (CTEX)
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/cjk/texinput/CJKutf8.
+sty
+Package: CJKutf8 2015/04/18 4.8.4
+ (d:/Program Files (x86)/texlive/2020/texmf-dist/tex/generic/iftex/ifpdf.sty
+Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2020/08/01 v1.3d Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/cjk/texinput/CJK.sty
+Package: CJK 2015/04/18 4.8.4
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/cjk/texinput/mule/MUL
+Eenc.sty
+Package: MULEenc 2015/04/18 4.8.4
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/cjk/texinput/CJK.enc
+File: CJK.enc 2015/04/18 4.8.4
+Now handling font encoding C00 ...
+... no UTF-8 mapping file for font encoding C00
+Now handling font encoding C05 ...
+... no UTF-8 mapping file for font encoding C05
+Now handling font encoding C09 ...
+... no UTF-8 mapping file for font encoding C09
+Now handling font encoding C10 ...
+... no UTF-8 mapping file for font encoding C10
+Now handling font encoding C20 ...
+... no UTF-8 mapping file for font encoding C20
+Now handling font encoding C19 ...
+... no UTF-8 mapping file for font encoding C19
+Now handling font encoding C40 ...
+... no UTF-8 mapping file for font encoding C40
+Now handling font encoding C42 ...
+... no UTF-8 mapping file for font encoding C42
+Now handling font encoding C43 ...
+... no UTF-8 mapping file for font encoding C43
+Now handling font encoding C50 ...
+... no UTF-8 mapping file for font encoding C50
+Now handling font encoding C52 ...
+... no UTF-8 mapping file for font encoding C52
+Now handling font encoding C49 ...
+... no UTF-8 mapping file for font encoding C49
+Now handling font encoding C60 ...
+... no UTF-8 mapping file for font encoding C60
+Now handling font encoding C61 ...
+... no UTF-8 mapping file for font encoding C61
+Now handling font encoding C63 ...
+... no UTF-8 mapping file for font encoding C63
+Now handling font encoding C64 ...
+... no UTF-8 mapping file for font encoding C64
+Now handling font encoding C65 ...
+... no UTF-8 mapping file for font encoding C65
+Now handling font encoding C70 ...
+... no UTF-8 mapping file for font encoding C70
+Now handling font encoding C31 ...
+... no UTF-8 mapping file for font encoding C31
+Now handling font encoding C32 ...
+... no UTF-8 mapping file for font encoding C32
+Now handling font encoding C33 ...
+... no UTF-8 mapping file for font encoding C33
+Now handling font encoding C34 ...
+... no UTF-8 mapping file for font encoding C34
+Now handling font encoding C35 ...
+... no UTF-8 mapping file for font encoding C35
+Now handling font encoding C36 ...
+... no UTF-8 mapping file for font encoding C36
+Now handling font encoding C37 ...
+... no UTF-8 mapping file for font encoding C37
+Now handling font encoding C80 ...
+... no UTF-8 mapping file for font encoding C80
+Now handling font encoding C81 ...
+... no UTF-8 mapping file for font encoding C81
+Now handling font encoding C01 ...
+... no UTF-8 mapping file for font encoding C01
+Now handling font encoding C11 ...
+... no UTF-8 mapping file for font encoding C11
+Now handling font encoding C21 ...
+... no UTF-8 mapping file for font encoding C21
+Now handling font encoding C41 ...
+... no UTF-8 mapping file for font encoding C41
+Now handling font encoding C62 ...
+... no UTF-8 mapping file for font encoding C62
+)
+LaTeX Info: Redefining \selectfont on input line 755.
+\CJK@indent=\box49
+) (d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
+))
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/cjkpunct/CJKpunct.sty
+Package: CJKpunct 2016/05/14 4.8.4
+\CJKpunct@cnta=\count189
+\CJKpunct@cntb=\count190
+\CJKpunct@cntc=\count191
+\CJKpunct@cntd=\count192
+\CJKpunct@cnte=\count193
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201C (decimal 8220)
+   defining Unicode char U+201D (decimal 8221)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2026 (decimal 8230)
+
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/cjkpunct/CJKpunct.spa
+))
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/cjk/texinput/CJKspace
+.sty
+Package: CJKspace 2015/04/18 3.8.0
+)
+(d:/Program Files (x86)/texlive/2020/texmf-dist/tex/latex/ctex/ctexspa.def
+File: ctexspa.def 2020/10/19 v2.5.5 Space info for CJKpunct (CTEX)
+)
+\ccwd=\dimen140
+\l__ctex_ccglue_skip=\skip49
+)
+\l__ctex_ziju_dim=\dimen141
+
+(d:/Program Files (x86)/texlive/2020/texm

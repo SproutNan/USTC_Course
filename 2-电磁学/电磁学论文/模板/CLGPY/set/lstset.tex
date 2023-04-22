@@ -1,0 +1,40 @@
+\usepackage{listings}
+\usepackage{cncolours}
+\lstset{
+    basicstyle=\small\ttfamily,%整体格式设置
+    columns=fullflexible,%设置字符列为非等宽
+    breaklines=true,%自动换行
+    % frameround=ttff,%边框四角弧度，t则弧
+    frame=tb,%边框样式
+    backgroundcolor=\color{赤金!15},%背景颜色
+    framerule=1.5pt,%边框线宽度
+    rulecolor=\color{墨色},%边框线颜色
+    % framesep=.5em,%边距
+    numbers=left,%左边显示数字
+    % numbersep=0em,
+    xleftmargin=2em,
+    framexleftmargin=2em,
+    numberstyle={\sffamily\footnotesize\color{teal}}
+}
+
+\lstdefinelanguage{latex}{
+    morecomment=[l]{\%},
+    commentstyle=\color{lightgray},
+    morekeywords={begin,end},
+    keywordstyle=\color{blue!50!black},
+    morekeywords={[2]documentclass,usepackage},%导言区命令
+    keywordstyle={[2]\color{red!75!black}},
+    morekeywords={[3]juanqi,title,author,institute,sxrq,jjxm,zzjj,txzz,xinxi,Title,Author,Institute,keywords,enkeywords,document,abstract,enabstract,minipage,tabular,tikzpicture,multicols,includegraphics,caption,captionof,center,quad,qquad,parbox,centering,subcaption,animateinline,bibliographystyle,cite,nocite,bibliography,textbf,enumerate,itemize,toprule,bottomrule,midrule,thebibliography,bibitem,small,footnotesize,verb},%命令和环境
+    keywordstyle={[3]\color{cyan!70!black}},
+    morekeywords={[4]maketitle,Maketitle,figure,table},
+    keywordstyle={[4]\color{朱红}},
+    morekeywords={[5]CLGPY,ctexart,ctexbook,ctexrep,book,article,report,standalone,tikz,tikz-3dplot,animate,ctex,fontspec,multicol,caption,subcaption,natbib,float,booktabs,geometry,graphicx,color,xcolor,hyperref,amsmath,mathtools,siunitx,mathabx},%文类和宏包
+    keywordstyle={[5]\color{竹青}},
+    morekeywords={[6]part,chapter,section,subsection,subsubsection,paragraph,subparagraph},%章节
+    keywordstyle={[6]\color{琥珀}},
+    morekeywords={[7],newcommand,newenvironment,renewcommand,renewenvironment,def,edef,gdef,xdef}%定义类命令
+    keywordstyle={[7]\color{blue!70!black}},
+}
+\lstnewenvironment{latexcode}
+{\lstset{language=latex}}
+{}

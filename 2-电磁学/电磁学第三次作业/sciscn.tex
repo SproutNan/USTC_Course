@@ -1,0 +1,421 @@
+% !TeX encoding = UTF-8
+% !TeX program = xelatex
+% !TeX spellcheck = en_US
+
+%-----------------------------------------------------------------------
+% 中国科学: 信息科学 中文模板, 请用 CCT-LaTeX 编译
+% http://scis.scichina.com
+% 南开大学程明明注释：也可以在Overleaf中使用XeLaTeX直接编译，
+% 例如：
+%-----------------------------------------------------------------------
+\documentclass{SCIS2020cn}
+\usepackage{amsthm,amsmath,amssymb,tikz,ctex}
+\usepackage{mathrsfs}
+\newcommand*{\num}{pi}
+ % define the plot style and the axis style
+\tikzset{elegant/.style={smooth,thick,samples=50,cyan}}
+\tikzset{eaxis/.style={->,>=stealth}}
+%\usepackage{breakurl}
+%\captionsetup[subfloat]{labelformat=simple,captionskip=0pt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者附加的定义
+%%% 常用环境已经加载好, 不需要重复加载
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 开始
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者不需要修改此处信息
+\ArticleType{电磁学C作业}
+%\SpecialTopic{}
+%\Luntan{中国科学院学部\quad 科学与技术前沿论坛}
+\Year{2020}
+\Vol{50}
+\No{1}
+\BeginPage{-1}
+\DOI{}
+\ReceiveDate{}
+\ReviseDate{}
+\AcceptDate{}
+\OnlineDate{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{黄瑞轩}{黄瑞轩}
+
+\entitle{Title}{Title for citation}
+
+\author[]{黄瑞轩}{}
+
+\enauthor[1]{Mingming XING}{{ }}
+
+\address[1]{ }
+
+\enaddress[1]{Affiliation, City {\rm 000000}, Country}
+
+\AuthorMark{电磁学C作业}
+
+\AuthorCitation{ }
+\enAuthorCitation{ }
+
+%\comment{\dag~同等贡献}
+%\encomment{\dag~Equal contribution}
+
+\maketitle
+\newpage
+
+\part{电力与电场}
+\part{静电场中的物质与电场能量}
+\newpage
+\part{电流与电路}
+\section{习题3.1}
+（1）
+
+由电流的微观形式
+\begin{equation}
+    I=neSu
+\end{equation}
+
+取一段线元$\Delta{}l$，这段线元的体积为
+\begin{equation}
+    V=S\Delta{}l
+\end{equation}
+
+这段线元的摩尔数为
+\begin{equation}
+    \nu=\frac{m}{M}=\frac{\rho{}V}{M}=1×10^{5}\Delta{}V(\text{mol})
+\end{equation}
+
+这段线元单位体积所蕴含的自由电子数为
+\begin{equation}
+    n=\frac{3\nu{}N_A}{\Delta{}V}=1.81×10^{29}
+\end{equation}
+
+结合题给数据，得到
+\begin{equation}
+    u=1.72×10^{-7}\text{m/s}
+\end{equation}
+
+（2）
+
+由热运动的知识，方均根速率
+\begin{equation}
+    \sqrt{\bar{v^2}}=\sqrt{\frac{3KT}{m}}=1.17×10^5\text{m/s}
+\end{equation}
+
+（3）
+
+由于
+\begin{equation}
+    \sigma=n\frac{e^2}{2m}\tau=\frac{1}{\rho}
+\end{equation}
+
+
+得
+\begin{equation}
+    \tau=1.4×10^{-14}\text{s}
+\end{equation}
+
+（4）
+
+平均自由程
+\begin{equation}
+    \lambda=\sqrt{\bar{v^2}}\tau=1.6×10^{-9}\text{m}
+\end{equation}
+
+（5）
+
+由（1），电流密度
+\begin{equation}
+    j=neu
+\end{equation}
+
+又由欧姆定律的微分形式
+\begin{equation}
+    j=\frac{E}{\rho_{\text{电}}}
+\end{equation}
+
+联立得电场强度
+\begin{equation}
+    E=1.40×10^{-4}\text{V/m}
+\end{equation}
+
+\section{习题3.4}
+根据Drude模型，电阻率
+\begin{equation}
+    \rho=\frac{2m}{ne^2\tau}=5.56×10^{-8}\text{Ω·m}
+\end{equation}
+
+\section{习题3.7}
+设通过第$i$只伏特表的电流为$I_{Vi}$，设通过第$i$只安培表的电流为$I_{Ai}$，$1\leqslant{}i\leqslant50$，设伏特表的电阻为$R$，则根据已知条件得
+\begin{equation}
+    I_{V1}=I_{A1}-I_{A2}
+\end{equation}
+\begin{equation}
+    U_1=I_{V1}R
+\end{equation}
+
+并且可得递推关系
+\begin{equation}
+    I_{A3}=I_{A2}-I_{V2}
+\end{equation}
+\begin{equation}
+    I_{A4}=I_{A2}-I_{V2}-I_{V3}
+\end{equation}
+
+一直到
+
+\begin{equation}
+    I_{A50}=I_{A2}-I_{V2}-I_{V3}-...-I_{V49}
+\end{equation}
+
+由于
+\begin{equation}
+    I_{A50}=I_{V50}
+\end{equation}
+
+因此所求
+\begin{equation}
+    \sum_{i=1}^{50}{I_{Vi}R}=U_1+\sum_{i=2}^{49}I_{Vi}R+\left(I_{A2}-\sum_{i=2}^{49}I_{Vi}\right)R=304\text{V}
+\end{equation}
+
+\section{习题3.11}
+设电动势$\mathscr{E}_i$单独存在时，$r_j$所在的支路通过的电流为$I_{ij}$，于是有
+\begin{equation}
+    I_{11}=\frac{\mathscr{E}_1}{r_1+\left(\frac{1}{r_2}+\frac{1}{r_3}\right)^{-1}}=\frac{13}{15}\text{A}
+\end{equation}
+\begin{equation}
+    I_{12}=-\frac{I_{11}\left(\frac{1}{r_2}+\frac{1}{r_3}\right)^{-1}}{r_2}=-\frac{8}{15}\text{A}
+\end{equation}
+\begin{equation}
+    I_{13}=-\frac{I_{11}\left(\frac{1}{r_2}+\frac{1}{r_3}\right)^{-1}}{r_3}=-\frac{1}{3}\text{A}
+\end{equation}
+
+\begin{equation}
+    I_{22}=\frac{\mathscr{E}_2}{r_2+\left(\frac{1}{r_1}+\frac{1}{r_3}\right)^{-1}}=\frac{13}{14}\text{A}
+\end{equation}
+\begin{equation}
+    I_{21}=-\frac{I_{22}\left(\frac{1}{r_1}+\frac{1}{r_3}\right)^{-1}}{r_1}=-\frac{4}{7}\text{A}
+\end{equation}
+\begin{equation}
+    I_{23}=-\frac{I_{22}\left(\frac{1}{r_1}+\frac{1}{r_3}\right)^{-1}}{r_3}=-\frac{5}{14}\text{A}
+\end{equation}
+
+\begin{equation}
+    I_{33}=\frac{\mathscr{E}_3}{r_3+\left(\frac{1}{r_1}+\frac{1}{r_2}\right)^{-1}}=\frac{6}{7}\text{A}
+\end{equation}
+\begin{equation}
+    I_{32}=-\frac{I_{33}\left(\frac{1}{r_1}+\frac{1}{r_2}\right)^{-1}}{r_2}=-\frac{3}{7}\text{A}
+\end{equation}
+\begin{equation}
+    I_{31}=-\frac{I_{33}\left(\frac{1}{r_1}+\frac{1}{r_2}\right)^{-1}}{r_1}=-\frac{3}{7}\text{A}
+\end{equation}
+
+根据电流叠加原理，三条路上的电流为
+\begin{equation}
+    I_j=\sum_{i=1}^3I_{ij}
+\end{equation}
+
+解得
+\begin{equation}
+    I_1=-0.133\text{A，}I_2=-0.033\text{A，}I_3=0.167\text{A}
+\end{equation}
+
+端电压
+\begin{equation}
+    U_i=\mathscr{E}_i-I_ir_i
+\end{equation}
+
+解得
+\begin{equation}
+    U_1=1.267\text{V，}U_2=1.467\text{V，}U_3=1.533\text{V}
+\end{equation}
+
+输出功率
+\begin{equation}
+    P_i=I_iU_i
+\end{equation}
+
+解得
+\begin{equation}
+    P_1=-0.17\text{W，}P_2=-0.05\text{W，}P_3=0.26\text{W}
+\end{equation}
+
+\section{习题3.14}
+
+下面考虑$\Delta$型电路。设电流从节点处流入，从节点$i$处流入的电流记为$I_i$，节点$ij$之间的电压记为$U_{ij}$，则
+\begin{equation}
+    I_1=\frac{U_{31}}{R_{31}}-\frac{U_{12}}{R_{12}}
+\end{equation}
+\begin{equation}
+    I_2=\frac{U_{12}}{R_{12}}-\frac{U_{23}}{R_{23}}
+\end{equation}
+\begin{equation}
+    I_3=\frac{U_{23}}{R_{23}}-\frac{U_{31}}{R_{31}}
+\end{equation}
+
+注意：由于这里规定三个点电势依次降低，因此$U_{ij}$是有正负的，这是上面三式子中符号的来源。
+
+下面考虑Y型电路。
+\begin{equation}
+    U_{12}=I_1R_1-I_2R_2
+\end{equation}
+\begin{equation}
+    U_{23}=I_2R_2-I_3R_3
+\end{equation}
+\begin{equation}
+    U_{31}=I_3R_3-I_1R_1
+\end{equation}
+
+联立上面的式子，解得
+\begin{equation}
+    R_1=\frac{R_{31}R_{12}}{R_{12}+R_{23}+R_{31}}
+\end{equation}
+\begin{equation}
+    R_2=\frac{R_{12}R_{23}}{R_{12}+R_{23}+R_{31}}
+\end{equation}
+\begin{equation}
+    R_3=\frac{R_{23}R_{31}}{R_{12}+R_{23}+R_{31}}
+\end{equation}
+
+反解
+\begin{equation}
+    R_{12}=\frac{R_1R_2+R_2R_3+R_3R_1}{R_3}
+\end{equation}
+\begin{equation}
+    R_{23}=\frac{R_1R_2+R_2R_3+R_3R_1}{R_1}
+\end{equation}
+\begin{equation}
+    R_{31}=\frac{R_1R_2+R_2R_3+R_3R_1}{R_2}
+\end{equation}
+
+\section{习题3.17}
+（1）
+
+观察可知，中间那个方格的四个顶点均为无交叉电流通过的点，因此可先将网格拆分成两个“$r-L-r$”并联的形式，这里$L$是由三个方格叠成的$L$型结构，这个结构的通电点为$L$的左上、右下两个节点。进一步地，$L$结构中间的节点为无交叉电流通过的点，因此又可将该结构分为$4r$并$r-\Box-r$结构，这里$\Box$的通电节点为两个对角线。综上可以得到等效电阻为
+\begin{equation}
+    R=\frac{1}{2}\left[\left(\frac{1}{4r}+\frac{1}{2r+\frac{1}{2}·2r}\right)^{-1}+2r\right]=\frac{13}{7}r
+\end{equation}
+
+（2）
+
+观察可知，与通电点直接相连的三个节点均为等势点，因此直接与节点相连的三个电阻并联，中间六个电阻并联，这三个结构之间为串联关系，则等效电阻
+\begin{equation}
+    R=\frac{1}{3}r+\frac{1}{6}r+\frac{1}{3}r=\frac{5}{6}r
+\end{equation}
+
+（3）
+
+观察可知，这个球最上面的顶点与最下面的顶点是等势点，将这两点相连，因此从这两个顶点向四周出发的四个电阻两两之间可看作并联关系，即电阻$\displaystyle{}r\rightarrow\frac{1}{2}r$，于是这个电阻可等效成$\boxtimes$的结构，最外边的四边电阻为$r$，中间四个电阻为$0.5r$，因此等效电阻
+\begin{equation}
+    R=\left(\frac{1}{r}+\frac{1}{0.5r×2}+\frac{1}{2r+\frac{1}{2}r}\right)^{-1}=\frac{5}{12}r
+\end{equation}
+
+\section{习题3.23}
+设三个支路的电流从上到下分别为$I_1,I_2,I_3$（方向蕴含在下述方程中），则根据基尔霍夫第一方程，有
+\begin{equation}
+    I_1+I_2=I_3
+\end{equation}
+
+根据基尔霍夫第二方程，两个回路分别列出
+\begin{equation}
+    \mathscr{E}_3-I_1R_3+I_2R_2-I_1R_4=0
+\end{equation}
+\begin{equation}
+    \mathscr{E}_2-I_3R_1-\mathscr{E}_1-I_2R_2=0
+\end{equation}
+
+解得
+\begin{equation}
+    I_1=\frac{2}{7}\text{A}
+\end{equation}
+\begin{equation}
+    I_2=-\frac{8}{7}\text{A}
+\end{equation}
+
+即$R_4$上的电压
+\begin{equation}
+    U_4=I_1R_4=\frac{12}{7}\text{V}
+\end{equation}
+
+通过$R_2$的电流
+\begin{equation}
+    |I_2|=\frac{8}{7}\text{A}
+\end{equation}
+
+\section{习题3.28}
+假设电流计中无电流通过，则两端等势，则意味着两个电容器两端的电压是相等的。设平均充电电流分别为$I_1,I_2$，则两条路一定同时完成充电和放电，若不然，假设$C_1$先充满电，$C_2$未充满电，则$C_1$也应当给$C_2$充电，矛盾，故得证。因此
+
+\begin{equation}
+    Q_{1,2}=I_{1,2}t
+\end{equation}
+
+又因为电容器两端电压相等，设为$U$，因此
+\begin{equation}
+    C_{1,2}=\frac{Q_{1,2}}{U}=\frac{I_{1,2}t}{U}
+\end{equation}
+
+又因为
+\begin{equation}
+    I_{1,2}=\frac{U'}{R_{1,2}}
+\end{equation}
+
+则
+\begin{equation}
+    C_{1,2}=\frac{U't}{UR_{1,2}}
+\end{equation}
+
+即可得到
+\begin{equation}
+    C_1R_1=C_2R_2
+\end{equation}
+
+证毕。
+
+\section{习题3.29}
+设某一时刻电流为$\displaystyle{}I=\frac{\text{d}Q}{\text{d}t}$，于是整个回路有
+\begin{equation}
+    \frac{\text{d}Q}{\text{d}t}R+\frac{Q}{C}=\mathscr{E}
+\end{equation}
+
+这个微分方程的解是
+\begin{equation}
+    Q=C\mathscr{E}(1-\text{e}^{-\frac{t}{RC}})
+\end{equation}
+
+充电电流
+\begin{equation}
+    I=\frac{\text{d}Q}{\text{d}t}=\frac{\mathscr{E}}{R}\text{e}^{-\frac{t}{RC}}
+\end{equation}
+
+当$t=1$s时
+
+（1）电荷的增加速率
+\begin{equation}
+    \frac{\text{d}Q}{\text{d}t}|_{t=1\text{s}}=\frac{\mathscr{E}}{R}\text{e}^{-\frac{1}{RC}}=9.55×10^{-7}\text{A}
+\end{equation}
+
+（2）储存能量$W_e=\frac{Q^2}{2C}$，因此其变化率
+\begin{equation}
+    \frac{\text{d}W_e}{\text{d}t}=\frac{Q}{C}\frac{\text{d}Q}{\text{d}t}=\frac{\mathscr{E}^2}{R}(1-\text{e}^{-\frac{t}{RC}})\text{e}^{-\frac{t}{RC}}
+\end{equation}
+
+\begin{equation}
+    \frac{\text{d}W_e}{\text{d}t}|_{t=1\text{s}}=1.08×10^{-6}\text{W}
+\end{equation}
+
+（3）电阻上的热功率$P=I^2R$，因此
+\begin{equation}
+    P|_{t=1\text{s}}=2.74×10^{-6}\text{W}
+\end{equation}
+
+（4）电源的输出功率$P_{out}=P+\frac{\text{d}W_e}{\text{d}t}$，因此
+\begin{equation}
+    P_{out}|_{t=1\text{s}}=3.82×10^{-6}\text{W}
+\end{equation}
+\end{document}
