@@ -1,0 +1,24 @@
+       .ORIG x3000
+       ADD   R7, R7, #2
+       ADD   R2, R2, #1
+       ADD   R1, R1, #1
+       LD    R3, MOD
+       ADD   R0, R0, #-2
+       BRn   DF
+       BRz   D10
+D7     ADD   R0, R0, #-1
+       BRn   D10
+       ADD   R4, R1, R1
+       ADD   R1, R2, #0
+       ADD   R2, R7, #0
+       ADD   R7, R7, R4
+       AND   R7, R7, R3
+       BRnzp D7
+DF     ADD   R7, R7, #-1
+D10    HALT
+fa     .FILL x02D2  ;#722 No.18
+fb     .FILL x00F6  ;#246 No.11
+fc     .FILL x02E6  ;#742 No.17
+fd     .FILL x0226  ;#550 No.41
+MOD    .FILL x03FF  ;x3015
+       .END

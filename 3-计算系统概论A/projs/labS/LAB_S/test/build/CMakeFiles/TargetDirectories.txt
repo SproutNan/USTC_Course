@@ -1,0 +1,3 @@
+C:/Users/Sprout/Desktop/HW/ICS/labS/LAB_S_Attachment/test/build/CMakeFiles/Tutorial.dir
+C:/Users/Sprout/Desktop/HW/ICS/labS/LAB_S_Attachment/test/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Sprout/Desktop/HW/ICS/labS/LAB_S_Attachment/test/build/CMakeFiles/ZERO_CHECK.dir

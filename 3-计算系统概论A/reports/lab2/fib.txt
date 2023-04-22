@@ -1,0 +1,28 @@
+.ORIG x3000
+    ADD R7, R7, #1
+    ADD R0, R0, #-1
+    BRz END 
+    ADD R7, R7, #1
+    ADD R0, R0, #-1
+    BRz END 
+    LD  R2, LEB
+    ADD R6, R6, #1
+    ADD R5, R5, #1
+LOP ADD R4, R5, R5
+    ADD R5, R6, #0
+    ADD R6, R7, #0
+    ADD R7, R4, R7
+    AND R7, R7, R2
+    ADD R0, R0, #-1
+    BRp LOP
+    
+END TRAP x25
+
+LEB .FILL #1023
+
+a   .FILL #930
+b   .FILL #246
+c   .FILL #386
+d   .FILL #754
+
+.END
