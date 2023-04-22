@@ -1,0 +1,1311 @@
+<meta charset="utf-8"><meta name="referrer" content="no-referrer">
+             <style type="text/css"> .blog-content-box {position: relative;padding: 0 24px 16px;background: #fff;border-radius: 2px;}.article-info-box {position: relative;background: #f8f8f8;border-radius: 4px;}.article-bar-top {color: #999aaa;width: 88%;display: -webkit-box;display: -ms-flexbox;display: flex;}.article-copyright {padding: 8px;padding-left: 0;font-size: 14px;color: #6f6f82;}.article-source-link {color: #6f6f82;font-size: 13px;}.tag-link {-webkit-box-sizing: border-box;box-sizing: border-box;margin-right: 8px;padding: 3px 6px;font-size: 12px;background-color: #fff;color: #5094d5;border: 1px solid #eaeaef;height: 24px;line-height: 17px;border-radius: 2px;display: inline-block;}.tags-box {font-size: 14px;line-height: 24px;margin-bottom: 4px;margin-right: 8px;}</style>
+            <div class="blog-content-box">
+<div class="article-header-box">
+<div class="article-header">
+<div class="article-title-box">
+<h1 class="title-article" id="articleContentId">机器学习强基计划2-2：一文详解ID3、C4.5、CART决策树算法+ Python实现</h1>
+</div>
+<div class="article-info-box">
+
+<div class="blog-tags-box">
+<div class="tags-box artic-tag-box">
+<span class="label">分类专栏：</span>
+<a class="tag-link" href="https://blog.csdn.net/frigidwinter/category_10302228.html" rel="noopener" target="_blank">机器学习强基计划</a>
+<span class="label">文章标签：</span>
+<a class="tag-link" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"机器学习","ab":"new","extra":"{\"searchword\":\"机器学习\"}"}' href="https://so.csdn.net/so/search/s.do?q=%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0&amp;t=blog&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" rel="noopener" target="_blank">机器学习</a>
+<a class="tag-link" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"决策树","ab":"new","extra":"{\"searchword\":\"决策树\"}"}' href="https://so.csdn.net/so/search/s.do?q=%E5%86%B3%E7%AD%96%E6%A0%91&amp;t=blog&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" rel="noopener" target="_blank">决策树</a>
+<a class="tag-link" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"python","ab":"new","extra":"{\"searchword\":\"python\"}"}' href="https://so.csdn.net/so/search/s.do?q=python&amp;t=blog&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=" rel="noopener" target="_blank">python</a>
+</div>
+</div>
+
+<div class="slide-content-box">
+<div class="article-copyright">
+<div class="creativecommons">
+                            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="noopener" target="_blank"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                        </div>
+<div class="article-source-link">
+                            本文链接：<a href="https://blog.csdn.net/FRIGIDWINTER/article/details/121221462" target="_blank">https://blog.csdn.net/FRIGIDWINTER/article/details/121221462</a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+<div id="blogHuaweiyunAdvert"></div>
+
+
+<article class="baidu_pl">
+<div class="article_content clearfix" id="article_content">
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-6e43165c0a.css" rel="stylesheet"/>
+<div class="markdown_views prism-dracula" id="content_views">
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+<path d="M5,0 0,2.5 5,5z" id="raphael-marker-block" stroke-linecap="round" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+</svg>
+<p></p>
+<div class="toc">
+<h3>目录</h3>
+<ul><li><a href="#0__4">0 写在前面</a></li><li><a href="#1__9">1 什么是决策树？</a></li><li><a href="#2__22">2 决策树算法框架</a></li><li><a href="#3__38">3 常见决策树算法</a></li><li><ul><li><a href="#31_ID3_39">3.1 ID3算法</a></li><li><a href="#32_C45_50">3.2 C4.5算法</a></li><li><a href="#33_CART_72">3.3 CART算法</a></li></ul>
+</li><li><a href="#4_Python_87">4 Python实现三种决策树算法</a></li><li><ul><li><a href="#41__88">4.1 数据集</a></li><li><a href="#42__112">4.2 获取最优属性</a></li><li><a href="#43__141">4.3 三种评估函数实现</a></li><li><a href="#44__176">4.4 可视化</a></li></ul>
+</li></ul>
+</div>
+<p></p>
+<h1><a id="0__4"></a>0 写在前面</h1>
+<p>机器学习强基计划聚焦深度和广度，加深对机器学习模型的理解与应用。“深”在详细推导算法模型背后的数学原理；“广”在分析多个机器学习模型：决策树、支持向量机、贝叶斯与马尔科夫决策、强化学习等。</p>
+<p>🚀详情：<a href="https://blog.csdn.net/FRIGIDWINTER/article/details/125711256">机器学习强基计划(附几十种经典模型源码合集)</a></p>
+<h1><a id="1__9"></a>1 什么是决策树？</h1>
+<p><font color="#4a86e8"><strong>决策树(decision tree, DT)</strong></font>模拟人类在面临决策问题时的系列判断处理机制，基于树结构对属性<font color="#4a86e8"><strong>分而治之(divide-and-conquer)</strong></font>学习。</p>
+<p>上面的说法比较抽象，我们举个例子</p>
+<blockquote>
+<p><strong>例1</strong>：相亲问题<br/> <br/> 在一个风和日丽的上午，你爸妈打算给你介绍一个相亲对象。在你决定去不去之前，你可能会做如图所示的头脑风暴。在这个例子中，你考虑了年龄、身高和长相三个属性，其中年龄是你认为最重要的属性——一个大于30岁的人你直接决定不见面，只有小于30岁、高个子、长相漂亮的人才能打动你。<br/> <br/><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/aceb06375a8a4f6c80f42f34c6c2e366.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARnJpZ2lkV2ludGVy,size_25,color_000000,t_70,g_se,x_16,y_15#pic_center" width="650"/></p>
+</blockquote>
+<p>这个例子中层层属性判断的过程抽象成算法就是决策树模型，在决策树中我们需要根据训练集将样本属性排列成树，当一个新样本来临时，便按如上的决策过程进行划分。</p>
+<h1><a id="2__22"></a>2 决策树算法框架</h1>
+<p>一般地，决策树包含若干分支节点和叶节点，最顶层的分支节点称为根节点。<font color="#f00"><strong>分支节点进行属性划分，叶节点给出分类预测结果</strong></font>。决策树算法的主要步骤可以总结为三步：</p>
+<ul><li>判断当前数据集能否根据某个属性继续划分？</li><li>若能，则计算最优划分属性，并按该属性的不同取值(比如例1中长相有两个取值<code>丑</code>和<code>漂亮</code>)划分数据集</li><li>若不能，则生成叶节点(比如例1中的<code>去</code>和<code>不去</code>)</li></ul>
+<p>重复上述步骤直至所有子树都不能继续划分为止</p>
+<p>这里有一个<font color="#4a86e8"><strong>最优划分属性</strong></font>的概念。所谓最优划分属性是指我们希望经过一次划分后，每个数据子集的类别应尽可能“纯”。比如例1中我们经过<code>长相</code>这个属性的划分，划分成两个子集，分别对应<code>见</code>和<code>不见</code>，那么这个属性划分得就有效；如果划分后，子集1和子集2中都包含<code>见</code>和<code>不见</code>的样本，那这个属性就是无效的，因为这次划分并没有分类的效果。</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/1681621215af45768cb95e86fd5048a4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARnJpZ2lkV2ludGVy,size_25,color_000000,t_70,g_se,x_16,y_15#pic_center" width="650"><br/> 根据计算最优划分属性的不同方式可以分成不同的决策树算法。</img></p>
+<h1><a id="3__38"></a>3 常见决策树算法</h1>
+<h2><a id="31_ID3_39"></a>3.1 ID3算法</h2>
+<p>ID3决策树算法核心原理是基于<font color="#4a86e8"><strong>信息增益(information gain)</strong></font>筛选最优划分属性：</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         
+          a
+         
+         
+          ∗
+         
+        
+        
+         =
+        
+        
+         
+          
+           
+            
+             a
+            
+            
+             r
+            
+            
+             g
+            
+           
+           
+            max
+           
+           
+            ⁡
+           
+          
+          
+           
+            a
+           
+           
+            ∈
+           
+           
+            A
+           
+          
+         
+          
+        
+         G
+        
+        
+         a
+        
+        
+         i
+        
+        
+         n
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          ,
+         
+         
+          a
+         
+         
+          )
+         
+        
+       
+       
+        {a_*=\underset{a\in A}{\mathrm{arg}\max}\,\,Gain\left( \boldsymbol{X}, a \right) }
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.7161em; vertical-align: -0.9661em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1757em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.4306em;"><span class="" style="top: -2.1612em; margin-left: 0em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight">A</span></span></span></span><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class=""><span class="mop"><span class="mord"><span class="mord mathrm" style="margin-right: 0.0139em;">arg</span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop">max</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.9661em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ain</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span></span></span></span></span></p>
+<p>信息增益定义为用属性<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+    
+     
+      
+       
+        a
+       
+      
+      
+       a
+      
+     
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span></span>对训练集<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+    
+     
+      
+       
+        X
+       
+      
+      
+       X
+      
+     
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span></span></span></span></span>进行划分后信息熵的减量，或称<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+    
+     
+      
+       
+        X
+       
+      
+      
+       X
+      
+     
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span></span></span></span></span>样本类别集合纯度的增量：<br/> <span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         G
+        
+        
+         a
+        
+        
+         i
+        
+        
+         n
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          ,
+         
+         
+          a
+         
+         
+          )
+         
+        
+        
+         =
+        
+        
+         E
+        
+        
+         n
+        
+        
+         t
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          )
+         
+        
+        
+         −
+        
+        
+         
+          ∑
+         
+         
+          
+           v
+          
+          
+           =
+          
+          
+           1
+          
+         
+         
+          V
+         
+        
+        
+         
+          
+           
+            ∣
+           
+           
+            
+             X
+            
+            
+             v
+            
+           
+           
+            ∣
+           
+          
+          
+           
+            ∣
+           
+           
+            X
+           
+           
+            ∣
+           
+          
+         
+         
+          E
+         
+         
+          n
+         
+         
+          t
+         
+         
+          
+           (
+          
+          
+           
+            X
+           
+           
+            v
+           
+          
+          
+           )
+          
+         
+        
+       
+       
+        Gain\left( \boldsymbol{X}, a \right) =Ent\left( \boldsymbol{X} \right) -\sum_{v=1}^V{\frac{\left| \boldsymbol{X}^v \right|}{\left| \boldsymbol{X} \right|}Ent\left( \boldsymbol{X}^v \right)}
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ain</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0576em;">E</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 3.0954em; vertical-align: -1.2671em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.8283em;"><span class="" style="top: -1.8829em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2671em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.427em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7404em;"><span class="" style="top: -3.139em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.936em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right: 0.0576em;">E</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7404em;"><span class="" style="top: -3.139em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span></span></span></span></span></p>
+<p>其中<font color="#4a86e8"><strong>信息熵</strong></font>度量样本集合的类别纯度：<br/> <span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         E
+        
+        
+         n
+        
+        
+         t
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          )
+         
+        
+        
+         =
+        
+        
+         −
+        
+        
+         
+          ∑
+         
+         
+          
+           k
+          
+          
+           =
+          
+          
+           1
+          
+         
+         
+          
+           ∣
+          
+          
+           Y
+          
+          
+           ∣
+          
+         
+        
+        
+         
+          
+           p
+          
+          
+           k
+          
+         
+         
+          
+           
+            log
+           
+           
+            ⁡
+           
+          
+          
+           2
+          
+         
+         
+          
+           p
+          
+          
+           k
+          
+         
+        
+       
+       
+        Ent\left( \boldsymbol{X} \right) =-\sum_{k=1}^{\left| \mathcal{Y} \right|}{p_k\log _2p_k}
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0576em;">E</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 3.2631em; vertical-align: -1.3021em;"></span><span class="mord">−</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.961em;"><span class="" style="top: -1.8479em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.386em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="minner mtight"><span class="mopen mtight delimcenter" style="top: 0em;"><span class="mtight">∣</span></span><span class="mord mathcal mtight" style="margin-right: 0.0822em;">Y</span><span class="mclose mtight delimcenter" style="top: 0em;"><span class="mtight">∣</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.3021em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop"><span class="mop">lo<span style="margin-right: 0.0139em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.207em;"><span class="" style="top: -2.4559em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2441em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<h2><a id="32_C45_50"></a>3.2 C4.5算法</h2>
+<p>信息增益评估有个缺陷，通俗来讲就是容易分得太细。一个直观的例子是，假设我们对样本进行编号，并将编号引入数据集，那ID3算法的划分结果就如下所示。</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/2aca1976e98b4570a20c9ca3355a4130.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARnJpZ2lkV2ludGVy,size_15,color_000000,t_70,g_se,x_16,y_15#pic_center" width="650"/></p>
+<p>这种情况下决策树毫无意义，因为它不具有泛化能力，来一个编号18的样本该如何判断是正例还是反例？</p>
+<p>C4.5决策树算法的核心原理是基于<font color="#4a86e8"><strong>增益率(gain ratio)</strong></font>筛选最优划分属性，相当于对信息增益进行关于属性<span class="katex--inline"><span class="katex"><span class="katex-mathml">
+    
+     
+      
+       
+        a
+       
+      
+      
+       a
+      
+     
+    </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span></span>粒度——即可取值数目的启发式加权，以避免信息增益偏好可能带来的不利影响：</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         
+          a
+         
+         
+          ∗
+         
+        
+        
+         =
+        
+        
+         
+          
+           
+            
+             a
+            
+            
+             r
+            
+            
+             g
+            
+           
+           
+            max
+           
+           
+            ⁡
+           
+          
+          
+           
+            a
+           
+           
+            ∈
+           
+           
+            A
+           
+          
+         
+          
+        
+         G
+        
+        
+         a
+        
+        
+         i
+        
+        
+         n
+        
+        
+         _
+        
+        
+         r
+        
+        
+         a
+        
+        
+         t
+        
+        
+         i
+        
+        
+         o
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          ,
+         
+         
+          a
+         
+         
+          )
+         
+        
+       
+       
+        {a_*=\underset{a\in A}{\mathrm{arg}\max}\,\,Gain\_ratio\left( \boldsymbol{X}, a \right) }
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.7161em; vertical-align: -0.9661em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1757em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.4306em;"><span class="" style="top: -2.1612em; margin-left: 0em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight">A</span></span></span></span><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class=""><span class="mop"><span class="mord"><span class="mord mathrm" style="margin-right: 0.0139em;">arg</span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop">max</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.9661em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ain</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal" style="margin-right: 0.0278em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span></span></span></span></span></p>
+<p>信息增益率定义为：</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         G
+        
+        
+         a
+        
+        
+         i
+        
+        
+         n
+        
+        
+         _
+        
+        
+         r
+        
+        
+         a
+        
+        
+         t
+        
+        
+         i
+        
+        
+         o
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          ,
+         
+         
+          a
+         
+         
+          )
+         
+        
+        
+         =
+        
+        
+         
+          
+           G
+          
+          
+           a
+          
+          
+           i
+          
+          
+           n
+          
+          
+           
+            (
+           
+           
+            X
+           
+           
+            ,
+           
+           
+            a
+           
+           
+            )
+           
+          
+         
+         
+          
+           I
+          
+          
+           V
+          
+          
+           
+            (
+           
+           
+            a
+           
+           
+            )
+           
+          
+         
+        
+       
+       
+        Gain\_ratio\left( \boldsymbol{X}, a \right) =\frac{Gain\left( \boldsymbol{X}, a \right)}{IV\left( a \right)}
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ain</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal" style="margin-right: 0.0278em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.363em; vertical-align: -0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.427em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0785em;">I</span><span class="mord mathnormal" style="margin-right: 0.2222em;">V</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord mathnormal">G</span><span class="mord mathnormal">ain</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.936em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></p>
+<p>其中<font color="#4a86e8"><strong>属性固有值(intrinsic value)</strong></font></p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         I
+        
+        
+         V
+        
+        
+         
+          (
+         
+         
+          a
+         
+         
+          )
+         
+        
+        
+         =
+        
+        
+         −
+        
+        
+         
+          ∑
+         
+         
+          
+           v
+          
+          
+           =
+          
+          
+           1
+          
+         
+         
+          V
+         
+        
+        
+         
+          
+           
+            ∣
+           
+           
+            
+             X
+            
+            
+             v
+            
+           
+           
+            ∣
+           
+          
+          
+           
+            ∣
+           
+           
+            X
+           
+           
+            ∣
+           
+          
+         
+         
+          
+           
+            log
+           
+           
+            ⁡
+           
+          
+          
+           2
+          
+         
+         
+          
+           
+            ∣
+           
+           
+            
+             X
+            
+            
+             v
+            
+           
+           
+            ∣
+           
+          
+          
+           
+            ∣
+           
+           
+            X
+           
+           
+            ∣
+           
+          
+         
+        
+       
+       
+        IV\left( a \right) =-\sum_{v=1}^V{\frac{\left| \boldsymbol{X}^v \right|}{\left| \boldsymbol{X} \right|}\log _2\frac{\left| \boldsymbol{X}^v \right|}{\left| \boldsymbol{X} \right|}}
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0785em;">I</span><span class="mord mathnormal" style="margin-right: 0.2222em;">V</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 3.0954em; vertical-align: -1.2671em;"></span><span class="mord">−</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.8283em;"><span class="" style="top: -1.8829em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2671em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.427em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7404em;"><span class="" style="top: -3.139em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.936em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop"><span class="mop">lo<span style="margin-right: 0.0139em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.207em;"><span class="" style="top: -2.4559em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.2441em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.427em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7404em;"><span class="" style="top: -3.139em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.936em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></span></p>
+<p>如果划分得太细，属性固有值就会增大，从而降低信息增益率</p>
+<h2><a id="33_CART_72"></a>3.3 CART算法</h2>
+<p>CART决策树算法的核心原理是基于<font color="#4a86e8"><strong>基尼系数(Gini index)</strong></font>筛选最优划分属性</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         
+          a
+         
+         
+          ∗
+         
+        
+        
+         =
+        
+        
+         
+          
+           
+            
+             a
+            
+            
+             r
+            
+            
+             g
+            
+           
+           
+            max
+           
+           
+            ⁡
+           
+          
+          
+           
+            a
+           
+           
+            ∈
+           
+           
+            A
+           
+          
+         
+          
+        
+         G
+        
+        
+         i
+        
+        
+         n
+        
+        
+         i
+        
+        
+         _
+        
+        
+         i
+        
+        
+         n
+        
+        
+         d
+        
+        
+         e
+        
+        
+         x
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          ,
+         
+         
+          a
+         
+         
+          )
+         
+        
+       
+       
+        {a_*=\underset{a\in A}{\mathrm{arg}\max}\,\,Gini\_index\left( \boldsymbol{X}, a \right) }
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.7161em; vertical-align: -0.9661em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1757em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.4306em;"><span class="" style="top: -2.1612em; margin-left: 0em;"><span class="pstrut" style="height: 3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mrel mtight">∈</span><span class="mord mathnormal mtight">A</span></span></span></span><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class=""><span class="mop"><span class="mord"><span class="mord mathrm" style="margin-right: 0.0139em;">arg</span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mop">max</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.9661em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ini</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">in</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span></span></span></span></span></p>
+<p>基尼系数定义为</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         G
+        
+        
+         i
+        
+        
+         n
+        
+        
+         i
+        
+        
+         _
+        
+        
+         i
+        
+        
+         n
+        
+        
+         d
+        
+        
+         e
+        
+        
+         x
+        
+        
+         
+          (
+         
+         
+          X
+         
+         
+          ,
+         
+         
+          a
+         
+         
+          )
+         
+        
+        
+         =
+        
+        
+         
+          ∑
+         
+         
+          
+           v
+          
+          
+           =
+          
+          
+           1
+          
+         
+         
+          V
+         
+        
+        
+         
+          
+           
+            ∣
+           
+           
+            
+             X
+            
+            
+             v
+            
+           
+           
+            ∣
+           
+          
+          
+           
+            ∣
+           
+           
+            X
+           
+           
+            ∣
+           
+          
+         
+         
+          G
+         
+         
+          i
+         
+         
+          n
+         
+         
+          i
+         
+         
+          
+           (
+          
+          
+           
+            X
+           
+           
+            v
+           
+          
+          
+           )
+          
+         
+        
+       
+       
+        Gini\_index\left( \boldsymbol{X}, a \right) =\sum_{v=1}^V{\frac{\left| \boldsymbol{X}^v \right|}{\left| \boldsymbol{X} \right|}Gini\left( \boldsymbol{X}^v \right)}
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.06em; vertical-align: -0.31em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ini</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">in</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal">a</span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 3.0954em; vertical-align: -1.2671em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.8283em;"><span class="" style="top: -1.8829em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.2671em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.427em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">∣</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7404em;"><span class="" style="top: -3.139em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;">∣</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.936em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ini</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7404em;"><span class="" style="top: -3.139em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span></span></span></span></span></p>
+<p>其中基尼值</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml">
+     
+      
+       
+        
+         G
+        
+        
+         i
+        
+        
+         n
+        
+        
+         i
+        
+        
+         
+          (
+         
+         
+          
+           X
+          
+          
+           v
+          
+         
+         
+          )
+         
+        
+        
+         =
+        
+        
+         
+          ∑
+         
+         
+          
+           k
+          
+          
+           =
+          
+          
+           1
+          
+         
+         
+          
+           ∣
+          
+          
+           Y
+          
+          
+           ∣
+          
+         
+        
+        
+         
+          
+           ∑
+          
+          
+           
+            
+             k
+            
+            
+             ′
+            
+           
+           
+            ≠
+           
+           
+            k
+           
+          
+         
+         
+          
+           
+            p
+           
+           
+            k
+           
+          
+          
+           
+            p
+           
+           
+            
+             k
+            
+            
+             ′
+            
+           
+          
+         
+        
+        
+         =
+        
+        
+         1
+        
+        
+         −
+        
+        
+         
+          ∑
+         
+         
+          
+           k
+          
+          
+           =
+          
+          
+           1
+          
+         
+         
+          
+           ∣
+          
+          
+           Y
+          
+          
+           ∣
+          
+         
+        
+        
+         
+          p
+         
+         
+          k
+         
+         
+          2
+         
+        
+       
+       
+        Gini\left( \boldsymbol{X}^v \right) =\sum_{k=1}^{\left| \mathcal{Y} \right|}{\sum_{k'\ne k}{p_kp_{k'}}}=1-\sum_{k=1}^{\left| \mathcal{Y} \right|}{p_{k}^{2}}
+       
+      
+     </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">G</span><span class="mord mathnormal">ini</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord"><span class="mord"><span class="mord"><span class="mord boldsymbol" style="margin-right: 0.0778em;">X</span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7404em;"><span class="" style="top: -3.139em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0359em;">v</span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top: 0em;">)</span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 3.3992em; vertical-align: -1.4382em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.961em;"><span class="" style="top: -1.8479em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.386em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="minner mtight"><span class="mopen mtight delimcenter" style="top: 0em;"><span class="mtight">∣</span></span><span class="mord mathcal mtight" style="margin-right: 0.0822em;">Y</span><span class="mclose mtight delimcenter" style="top: 0em;"><span class="mtight">∣</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.3021em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.05em;"><span class="" style="top: -1.8479em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.6828em;"><span class="" style="top: -2.786em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span><span class="mrel mtight"><span class="mrel mtight"><span class="mord vbox mtight"><span class="thinbox mtight"><span class="rlap mtight"><span class="strut" style="height: 0.8889em; vertical-align: -0.1944em;"></span><span class="inner"><span class="mord mtight"><span class="mrel mtight"></span></span></span><span class="fix"></span></span></span></span></span><span class="mrel mtight">=</span></span><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.4382em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.6828em;"><span class="" style="top: -2.786em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 3.2631em; vertical-align: -1.3021em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.961em;"><span class="" style="top: -1.8479em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span class="" style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class=""><span class="mop op-symbol large-op">∑</span></span></span><span class="" style="top: -4.386em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="minner mtight"><span class="mopen mtight delimcenter" style="top: 0em;"><span class="mtight">∣</span></span><span class="mord mathcal mtight" style="margin-right: 0.0822em;">Y</span><span class="mclose mtight delimcenter" style="top: 0em;"><span class="mtight">∣</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.3021em;"><span class=""></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.8641em;"><span class="" style="top: -2.453em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0315em;">k</span></span></span></span><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.247em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>度量了从数据集中任取两个样本，其类别标记不一致的概率总和，表征了数据集样本类别的纯度——基尼值越小则样本集合类别纯度越高</p>
+<h1><a id="4_Python_87"></a>4 Python实现三种决策树算法</h1>
+<h2><a id="41__88"></a>4.1 数据集</h2>
+<p>编程实现方面我们才有周志华的西瓜数据集</p>
+<pre><code class="prism language-python">编号<span class="token punctuation">,</span>色泽<span class="token punctuation">,</span>根蒂<span class="token punctuation">,</span>敲声<span class="token punctuation">,</span>纹理<span class="token punctuation">,</span>脐部<span class="token punctuation">,</span>触感<span class="token punctuation">,</span>密度<span class="token punctuation">,</span>含糖率<span class="token punctuation">,</span>好瓜
+<span class="token number">1</span><span class="token punctuation">,</span>青绿<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>凹陷<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.697</span><span class="token punctuation">,</span><span class="token number">0.46</span><span class="token punctuation">,</span>是 
+<span class="token number">2</span><span class="token punctuation">,</span>乌黑<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>沉闷<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>凹陷<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.774</span><span class="token punctuation">,</span><span class="token number">0.376</span><span class="token punctuation">,</span>是 
+<span class="token number">3</span><span class="token punctuation">,</span>乌黑<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>凹陷<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.634</span><span class="token punctuation">,</span><span class="token number">0.264</span><span class="token punctuation">,</span>是 
+<span class="token number">4</span><span class="token punctuation">,</span>青绿<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>沉闷<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>凹陷<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.608</span><span class="token punctuation">,</span><span class="token number">0.318</span><span class="token punctuation">,</span>是 
+<span class="token number">5</span><span class="token punctuation">,</span>浅白<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>凹陷<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.556</span><span class="token punctuation">,</span><span class="token number">0.215</span><span class="token punctuation">,</span>是 
+<span class="token number">6</span><span class="token punctuation">,</span>青绿<span class="token punctuation">,</span>稍蜷<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>稍凹<span class="token punctuation">,</span>软粘<span class="token punctuation">,</span><span class="token number">0.403</span><span class="token punctuation">,</span><span class="token number">0.237</span><span class="token punctuation">,</span>是 
+<span class="token number">7</span><span class="token punctuation">,</span>乌黑<span class="token punctuation">,</span>稍蜷<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>稍糊<span class="token punctuation">,</span>稍凹<span class="token punctuation">,</span>软粘<span class="token punctuation">,</span><span class="token number">0.481</span><span class="token punctuation">,</span><span class="token number">0.149</span><span class="token punctuation">,</span>是 
+<span class="token number">8</span><span class="token punctuation">,</span>乌黑<span class="token punctuation">,</span>稍蜷<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>稍凹<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.437</span><span class="token punctuation">,</span><span class="token number">0.211</span><span class="token punctuation">,</span>是 
+<span class="token number">9</span><span class="token punctuation">,</span>乌黑<span class="token punctuation">,</span>稍蜷<span class="token punctuation">,</span>沉闷<span class="token punctuation">,</span>稍糊<span class="token punctuation">,</span>稍凹<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.666</span><span class="token punctuation">,</span><span class="token number">0.091</span><span class="token punctuation">,</span>否 
+<span class="token number">10</span><span class="token punctuation">,</span>青绿<span class="token punctuation">,</span>硬挺<span class="token punctuation">,</span>清脆<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>平坦<span class="token punctuation">,</span>软粘<span class="token punctuation">,</span><span class="token number">0.243</span><span class="token punctuation">,</span><span class="token number">0.267</span><span class="token punctuation">,</span>否 
+<span class="token number">11</span><span class="token punctuation">,</span>浅白<span class="token punctuation">,</span>硬挺<span class="token punctuation">,</span>清脆<span class="token punctuation">,</span>模糊<span class="token punctuation">,</span>平坦<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.245</span><span class="token punctuation">,</span><span class="token number">0.057</span><span class="token punctuation">,</span>否 
+<span class="token number">12</span><span class="token punctuation">,</span>浅白<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>模糊<span class="token punctuation">,</span>平坦<span class="token punctuation">,</span>软粘<span class="token punctuation">,</span><span class="token number">0.343</span><span class="token punctuation">,</span><span class="token number">0.099</span><span class="token punctuation">,</span>否 
+<span class="token number">13</span><span class="token punctuation">,</span>青绿<span class="token punctuation">,</span>稍蜷<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>稍糊<span class="token punctuation">,</span>凹陷<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.639</span><span class="token punctuation">,</span><span class="token number">0.161</span><span class="token punctuation">,</span>否 
+<span class="token number">14</span><span class="token punctuation">,</span>浅白<span class="token punctuation">,</span>稍蜷<span class="token punctuation">,</span>沉闷<span class="token punctuation">,</span>稍糊<span class="token punctuation">,</span>凹陷<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.657</span><span class="token punctuation">,</span><span class="token number">0.198</span><span class="token punctuation">,</span>否 
+<span class="token number">15</span><span class="token punctuation">,</span>乌黑<span class="token punctuation">,</span>稍蜷<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>清晰<span class="token punctuation">,</span>稍凹<span class="token punctuation">,</span>软粘<span class="token punctuation">,</span><span class="token number">0.36</span><span class="token punctuation">,</span><span class="token number">0.37</span><span class="token punctuation">,</span>否 
+<span class="token number">16</span><span class="token punctuation">,</span>浅白<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>浊响<span class="token punctuation">,</span>模糊<span class="token punctuation">,</span>平坦<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.593</span><span class="token punctuation">,</span><span class="token number">0.042</span><span class="token punctuation">,</span>否 
+<span class="token number">17</span><span class="token punctuation">,</span>青绿<span class="token punctuation">,</span>蜷缩<span class="token punctuation">,</span>沉闷<span class="token punctuation">,</span>稍糊<span class="token punctuation">,</span>稍凹<span class="token punctuation">,</span>硬滑<span class="token punctuation">,</span><span class="token number">0.719</span><span class="token punctuation">,</span><span class="token number">0.103</span><span class="token punctuation">,</span>否
+</code></pre>
+<h2><a id="42__112"></a>4.2 获取最优属性</h2>
+<p>计算信息熵，其中<code>data</code>是样本集，要求最后一列为标签列</p>
+<pre><code class="prism language-python"><span class="token keyword">def</span> <span class="token function">__getEntory</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> data<span class="token punctuation">:</span> DataFrame<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">&gt;</span> <span class="token builtin">float</span><span class="token punctuation">:</span>
+    ent<span class="token punctuation">,</span> label <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> data<span class="token punctuation">.</span>iloc<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">list</span><span class="token punctuation">(</span>label<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        pk <span class="token operator">=</span> label<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">/</span> label<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size
+        ent <span class="token operator">=</span> ent <span class="token operator">-</span> pk <span class="token operator">*</span> np<span class="token punctuation">.</span>log2<span class="token punctuation">(</span>pk<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> ent
+</code></pre>
+<p>计算信息增益，其中<code>A</code>是样本属性与可取属性值字典，<code>func</code>就对应ID3、C4.5、CART三种算法各自的评估函数，返回最优划分属性。本文重在理解决策树整体过程，连续属性的处理细节后面再谈</p>
+<pre><code class="prism language-python"><span class="token keyword">def</span> <span class="token function">getBestAttr</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> data<span class="token punctuation">:</span> DataFrame<span class="token punctuation">,</span> A<span class="token punctuation">:</span> <span class="token builtin">dict</span><span class="token punctuation">,</span> func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+   <span class="token comment"># 评估值, 最优划分属性, 连续属性最佳离散分位点</span>
+   f<span class="token punctuation">,</span> bestA<span class="token punctuation">,</span> bestIndex <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">9999</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">,</span> <span class="token boolean">None</span>
+   <span class="token keyword">for</span> attr<span class="token punctuation">,</span> attrValDict <span class="token keyword">in</span> A<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+       <span class="token comment"># 若是离散属性</span>
+       <span class="token keyword">if</span> <span class="token keyword">not</span> attrValDict<span class="token punctuation">[</span><span class="token string">'isContinuous'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+           tempf <span class="token operator">=</span> func<span class="token punctuation">(</span>attr<span class="token punctuation">,</span> attrValDict<span class="token punctuation">[</span><span class="token string">'val'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> data<span class="token punctuation">)</span>
+       <span class="token comment"># 若是连续属性</span>
+       <span class="token keyword">else</span><span class="token punctuation">:</span>
+           <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+       <span class="token keyword">if</span> tempf <span class="token operator">&gt;</span> f<span class="token punctuation">:</span>
+           f <span class="token operator">=</span> tempf
+           bestA <span class="token operator">=</span> attr
+           bestIndex <span class="token operator">=</span> tempBestIndex <span class="token keyword">if</span> attrValDict<span class="token punctuation">[</span><span class="token string">'isContinuous'</span><span class="token punctuation">]</span> <span class="token keyword">else</span> <span class="token boolean">None</span>
+   <span class="token keyword">return</span> bestA<span class="token punctuation">,</span> bestIndex
+</code></pre>
+<h2><a id="43__141"></a>4.3 三种评估函数实现</h2>
+<p>计算信息增益。其中<code>attr</code>是待评估属性，<code>attrVal</code>是待评估属性可选取的值列表</p>
+<pre><code class="prism language-python"><span class="token keyword">def</span> <span class="token function">calGainInfo</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> attr<span class="token punctuation">,</span> attrVal<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    gainInfo <span class="token operator">=</span> self<span class="token punctuation">.</span>__getEntory<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> aVal <span class="token keyword">in</span> attrVal<span class="token punctuation">:</span>
+        subSet <span class="token operator">=</span> self<span class="token punctuation">.</span>__getSubsetByAttr<span class="token punctuation">(</span>attr<span class="token punctuation">,</span> aVal<span class="token punctuation">,</span> data<span class="token punctuation">)</span>
+        gainInfo <span class="token operator">=</span> gainInfo <span class="token operator">-</span> self<span class="token punctuation">.</span>__getEntory<span class="token punctuation">(</span>subSet<span class="token punctuation">)</span> <span class="token operator">*</span> subSet<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size <span class="token operator">/</span> data<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size
+    <span class="token keyword">return</span> gainInfo  
+</code></pre>
+<p>计算增益率</p>
+<pre><code class="prism language-python"><span class="token keyword">def</span> <span class="token function">calGainRatio</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> attr<span class="token punctuation">,</span> attrVal<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    gainInfo <span class="token operator">=</span> self<span class="token punctuation">.</span>__getEntory<span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+    iva <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> aVal <span class="token keyword">in</span> attrVal<span class="token punctuation">:</span>
+        subSet <span class="token operator">=</span> self<span class="token punctuation">.</span>__getSubsetByAttr<span class="token punctuation">(</span>attr<span class="token punctuation">,</span> aVal<span class="token punctuation">,</span> data<span class="token punctuation">)</span>
+        rate <span class="token operator">=</span> subSet<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size <span class="token operator">/</span> data<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size
+        gainInfo <span class="token operator">=</span> gainInfo <span class="token operator">-</span> self<span class="token punctuation">.</span>__getEntory<span class="token punctuation">(</span>subSet<span class="token punctuation">)</span> <span class="token operator">*</span> rate
+        iva <span class="token operator">=</span> iva <span class="token operator">-</span> rate <span class="token operator">*</span> np<span class="token punctuation">.</span>log2<span class="token punctuation">(</span>rate <span class="token operator">+</span> <span class="token number">0.001</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> gainInfo <span class="token operator">/</span> iva
+</code></pre>
+<p>计算基尼系数</p>
+<pre><code class="prism language-python"><span class="token keyword">def</span> <span class="token function">calGiniIndex</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> attr<span class="token punctuation">,</span> attrVal<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    giniIndex <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> aVal <span class="token keyword">in</span> attrVal<span class="token punctuation">:</span>
+        subSet <span class="token operator">=</span> self<span class="token punctuation">.</span>__getSubsetByAttr<span class="token punctuation">(</span>attr<span class="token punctuation">,</span> aVal<span class="token punctuation">,</span> data<span class="token punctuation">)</span>
+        gini<span class="token punctuation">,</span> label <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> subSet<span class="token punctuation">.</span>iloc<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">list</span><span class="token punctuation">(</span>label<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>index<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            pk <span class="token operator">=</span> label<span class="token punctuation">.</span>value_counts<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">/</span> label<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size
+            gini <span class="token operator">=</span> gini <span class="token operator">-</span> pk<span class="token operator">**</span><span class="token number">2</span>
+        giniIndex <span class="token operator">=</span> giniIndex <span class="token operator">+</span> subSet<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size <span class="token operator">/</span> data<span class="token punctuation">.</span>index<span class="token punctuation">.</span>size <span class="token operator">*</span> gini
+    <span class="token keyword">return</span> <span class="token operator">-</span>giniIndex
+</code></pre>
+<h2><a id="44__176"></a>4.4 可视化</h2>
+<p>基于ID3算法生成的决策树</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/d00755eddf024b369e59003d980cc1f8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARnJpZ2lkV2ludGVy,size_25,color_000000,t_70,g_se,x_16,y_15#pic_center" width="650"><br/> 基于C4.5算法生成的决策树</img></p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/1c424d4d076b4849a1a77372b9f15853.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARnJpZ2lkV2ludGVy,size_25,color_000000,t_70,g_se,x_16,y_15#pic_center" width="650"/></p>
+<p>基于CART算法生成的决策树</p>
+<p><img alt="在这里插入图片描述" src="https://img-blog.csdnimg.cn/482fb02c2c124476be37605b86ff483c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARnJpZ2lkV2ludGVy,size_25,color_000000,t_70,g_se,x_16,y_15#pic_center" width="650"/></p>
+<p><mark>获取完整源码请通过下方名片联系博主</mark></p>
+<hr color="#FFF" size='1"'/>
+<p>🔥 <strong>更多精彩专栏</strong>：</p>
+<ul><li><a href="https://blog.csdn.net/frigidwinter/category_11541346.html">《ROS从入门到精通》</a></li><li><a href="https://blog.csdn.net/frigidwinter/category_11410243.html">《机器人原理与技术》</a></li><li><a href="https://blog.csdn.net/frigidwinter/category_10302228.html">《机器学习强基计划》</a></li><li><a href="https://blog.csdn.net/frigidwinter/category_11195510.html">《计算机视觉教程》</a></li><li>…</li></ul>
+<br/>
+<center>
+ 👇源码获取 · 技术交流 · 抱团学习 · 咨询分享 请联系👇 
+</center>
+</div>
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-22a2fefd3b.css" rel="stylesheet"/>
+<link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-4f8fbf9108.css" rel="stylesheet"/>
+</div>
+<div id="treeSkill"></div>
+<div class="blog-extension-box" id="blogExtensionBox" style="width:400px;margin:auto;margin-top:12px"></div>
+</article>
+<script>
+  $(function() {
+    setTimeout(function () {
+      var mathcodeList = document.querySelectorAll('.htmledit_views img.mathcode');
+      if (mathcodeList.length > 0) {
+        var testImg = new Image();
+        testImg.onerror = function () {
+          mathcodeList.forEach(function (item) {
+            $(item).before('<span class="img-codecogs">\\(' + item.alt + '\\)</span>');
+            $(item).remove();
+          })
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+        testImg.src = mathcodeList[0].src;
+      }
+    }, 1000)
+  })
+  </script>
+</div>
