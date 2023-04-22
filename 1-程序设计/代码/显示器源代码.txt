@@ -1,0 +1,34 @@
+#pragma warning(disable:4996)
+#include<iostream>
+#include<malloc.h>
+#include<string>
+
+using namespace std;
+
+int main(void) {
+	char num[10][5][4] = {
+		{"XXX","X.X","X.X","X.X","XXX"},//0
+		{"..X","..X","..X","..X","..X"},//1
+		{"XXX","..X","XXX","X..","XXX"},//2
+		{"XXX","..X","XXX","..X","XXX"},//3
+		{"X.X","X.X","XXX","..X","..X"},//4
+		{"XXX","X..","XXX","..X","XXX"},//5
+		{"XXX","X..","XXX","X.X","XXX"},//6
+		{"XXX","..X","..X","..X","..X"},//7
+		{"XXX","X.X","XXX","X.X","XXX"},//8
+		{"XXX","X.X","XXX","..X","XXX"}//9
+	};
+	int number;
+	string cmd;
+	cin >> number >> cmd;
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < number; j++) {
+			int now = cmd[j] - 48;
+			cout << num[now][i];
+			if (j != number - 1) {
+				putchar('.');
+			}
+		}
+		cout << endl;
+	}
+}

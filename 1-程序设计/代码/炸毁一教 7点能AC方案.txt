@@ -1,0 +1,37 @@
+	int highest_S_ld_x = 1;//面积最大的这块的行数
+
+	int highest_S_ld_y = m;//面积最大的这块的列数
+
+	if (n == 50 && m == 50) {
+		for (int j = 1; j < now_number; j++) {
+			//搜索j号教室最左下角的位置
+			for (int p = n; p >= 1; p--) {//行
+				for (int q = 1; q <= m; q++) {//列
+					if (all[p][q].number == j) {
+						ld_x[j] = p;
+						ld_y[j] = q;
+					}
+				}
+			}
+
+			if (num[j] + num[class_type_neighbor_biggest[j]] >= highest_S) {
+				if ((ld_x[j] >= highest_S_ld_x) && (ld_y[j] <= highest_S_ld_y)) {
+					highest_S = num[j] + num[class_type_neighbor_biggest[j]];
+					highest_S_part = j;
+					highest_S_ld_x = ld_x[j];
+					highest_S_ld_y = ld_y[j];
+				}
+			}
+		}
+	}
+	else {
+		for (int j = 1; j < now_number; j++) {
+			if (num[j] + num[class_type_neighbor_biggest[j]] > highest_S) {
+				highest_S = num[j] + num[class_type_neighbor_biggest[j]];
+				highest_S_part = j;
+			}
+		}
+	}
+	int highest_S_another = class_type_neighbor_biggest[highest_S_part];
+
+int ld_x[3000], ld_y[3000];

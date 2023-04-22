@@ -1,0 +1,66 @@
+#pragma warning(disable:4996)
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+string dic[1000002];
+string don[1000002];
+int cnt = 0;
+
+void swap(string* a, string* b) {
+	string* temp = b;
+	b = a;
+	a = temp;
+}
+
+int main() {
+	while (1) {
+		getline(cin, dic[cnt]);
+		if (dic[cnt].empty() == true) break;
+		else {
+			int whereas = dic[cnt].find(' ', 0);//找空格在第几位
+			don[cnt] = &dic[cnt][whereas + 1];//从空格之后那一位的地址，开始复制给dont
+			int len2 = don[cnt].length();
+			for (int i = whereas; i <= whereas + len2; i++) {
+				dic[cnt][i] = '\0';
+			}
+			swap(dic[cnt], don[cnt]);
+			cnt++;
+		}
+	}
+	int re = 1;
+	for (; re == 1;) {
+		re = 0;
+		for (int j = 0; j < cnt; j++) {
+			if (dic[j].compare(dic[j + 1]) > 0) {
+				swap(don[j], don[j + 1]);
+				swap(dic[j], dic[j + 1]);
+				re = 1;
+			}
+		}
+	}
+	string now;
+	while (1) {
+		getline(cin, now);
+		int isfind = 0, isquit = 0;
+		if (now.empty() == true) {
+			break;
+		}
+		for (int i = 0; i <= cnt; i++) {
+			if (now.compare(dic[i]) == 0) {
+				cout << don[i] << endl;
+				isfind = 1;
+				break;
+			}
+			if (now.compare(dic[i]) < 0) {
+				cout << "eh" << endl;
+				isquit = 1;
+				break;
+			}
+		}
+		if (isfind == 0 && isquit == 0) {
+			cout << "eh" << endl;
+		}
+	}
+}

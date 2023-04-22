@@ -1,0 +1,80 @@
+#pragma warning(disable:4996)
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+void swap(char* a, char* b) {
+	*a = *a + *b;
+	*b = *a - *b;
+	*a = *a - *b;
+}
+
+void reverse(char* numq, int start, int n) {
+	//注意start就是需要被反转的第一个序号
+	int central = 0;//奇数默认false
+	if ((n - start) % 2 == 1) {//需要排序的是偶数个
+		central = 1;
+	}
+	int central_b = (start + n + central) / 2;//中间元序号
+	for (int i = start; i < central_b; i++) {
+		swap(&numq[i], &numq[start + n - i]);
+	}
+}
+
+bool IsBiggest(char* numq, char* stdnumq, int n) {
+	for (int i = 1; i <= n; i++) {
+		if (numq[i] != stdnumq[i]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+void to_be_next(char* num_queue, int n) {
+	//先从右边开始，找到第一个比其右边数字小的数字的序号。记为j
+	int j = 0;
+	for (int i = n - 1; i >= 1; i--) {
+		if (num_queue[i] < num_queue[i + 1]) {
+			j = i;
+			break;
+		}
+	}
+	//从j的右侧找大于[j]的最小数，因为j的右侧一定是一个递减序列，因此从全队右端开始就行，序号记为k
+	int k = 0;
+	for (int i = n; i > j; i--) {
+		if (num_queue[i] > num_queue[j]) {
+			k = i;
+			break;
+		}
+	}
+	//对换[j]和[k]
+	swap(&num_queue[j], &num_queue[k]);
+	reverse(num_queue, j + 1, n);
+}
+
+int main(void) {
+	int n, k;
+	cin >> n >> k;
+	//cout << n;
+	char* num_queue = new char[n + 1];
+	char* std_queue = new char[n + 1];
+	//开辟一个0号排列：123……n
+	for (int i = 1; i <= n; i++) {
+		num_queue[i] = i + '0';
+		std_queue[i] = i + '0';
+	}
+	reverse(std_queue, 1, n);
+	int cnt = 1;
+	while (1) {
+		if (cnt == k) {
+			for (int i = 1; i <= n; i++) {
+				putchar(num_queue[i]);
+			}
+			break;
+		}
+		if (IsBiggest(num_queue, std_queue, n) == true)break;
+		to_be_next(num_queue, n);
+		cnt++;
+	}
+}

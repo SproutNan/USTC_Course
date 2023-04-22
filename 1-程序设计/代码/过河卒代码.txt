@@ -1,0 +1,96 @@
+#include<iostream>
+
+using namespace std;
+
+struct map_info {
+	bool isConrolled = false;
+	long long int paths = 0;
+};
+typedef struct map_info city;
+
+void displaymap(city** map,int b_x,int b_y, int num) {
+	cout << "下面是第" <<num<<"次尝试："<< endl;
+	for (int i = 0; i <= b_y; i++) {
+		for (int j = 0; j <= b_x; j++) {
+			cout << map[i][j].paths << ' ';
+		}
+		cout << endl;
+	}
+	cout << endl;
+	cout << "下面是控制情况：" << endl;
+	for (int i = 0; i <= b_y; i++) {
+		for (int j = 0; j <= b_x; j++) {
+			cout << map[i][j].isConrolled << ' ';
+		}
+		cout << endl;
+	}
+	cout << endl;
+}
+int main(void) {
+	int b_x, b_y, h_x, h_y;
+	cin >> b_y >> b_x >> h_y >> h_x;
+	city** map;
+	map = new city * [b_y + 1];
+	for (int i = 0; i <= b_y; i++) {
+		map[i] = new city[b_x + 1];
+	}
+	map[h_y][h_x].isConrolled = true;
+	if (h_y - 1 >= 0) {
+		if (h_x - 2 >= 0) {
+			map[h_y - 1][h_x - 2].isConrolled = true;
+		}
+	}
+	if (h_y - 2 >= 0) {
+		if (h_x - 1 >= 0) {
+			map[h_y - 2][h_x - 1].isConrolled = true;
+		}
+	}
+	if (h_y + 1 <= b_y) {
+		if (h_x - 2 >= 0) {
+			map[h_y + 1][h_x - 2].isConrolled = true;
+		}
+	}
+	if (h_y + 2 <= b_y) {
+		if (h_x - 1 >= 0) {
+			map[h_y + 2][h_x - 1].isConrolled = true;
+		}
+	}
+	if (h_y + 2 <= b_y) {
+		if (h_x + 1 <= b_x) {
+			map[h_y + 2][h_x + 1].isConrolled = true;
+		}
+	}
+	if (h_y + 1 <= b_y) {
+		if (h_x + 2 <= b_x) {
+			map[h_y + 1][h_x + 2].isConrolled = true;
+		}
+	}
+	if (h_y - 1 >= 0) {
+		if (h_x + 2 <= b_x) {
+			map[h_y - 1][h_x + 2].isConrolled = true;
+		}
+	}
+	if (h_y - 2 >= 0) {
+		if (h_x + 1 <= b_x) {
+			map[h_y - 2][h_x + 1].isConrolled = true;
+		}
+	}
+	map[0][0].paths = 1;
+	for (int i = 0; i <= b_y; i++) {
+		for (int j = 0; j <= b_x; j++) {
+			if (i > 0) {
+				if (map[i][j].isConrolled == false) {
+					map[i][j].paths += map[i - 1][j].paths;
+				}
+			}
+			if (j > 0) {
+				if (map[i][j].isConrolled == false) {
+					map[i][j].paths += map[i][j - 1].paths;
+				}
+			}
+			//displaymap(map, b_x, b_y, (i + 1) * (j + 1));
+			//printf("\n行i = %d, 列j = %d\n", i, j);
+		}
+	}
+	printf("%lld", map[b_y][b_x].paths);
+}

@@ -1,0 +1,113 @@
+#pragma warning(disable:4996)
+#include<iostream>
+#include<string>
+#include<malloc.h>
+
+using namespace std;
+
+void muti(int* a, int* b, int bit, int len) {//a是因子，b是乘数，bit是最高位数，len是num位数
+	int* c = (int*)malloc(sizeof(int) * bit);
+	int* d = (int*)malloc(sizeof(int) * bit);
+	for (int i = 0; i < bit; i++) {
+		d[i] = 0;
+	}
+	for (int j = 0; j < len; j++) {
+		int now = a[bit - 1 - j];
+		for (int i = 0; i < bit; i++) {
+			c[i] = 0;
+		}
+		for (int i = bit - 1; i >= 0; i--) {
+			c[i] = now * b[i];
+		}
+		for (int i = bit - 1 - j; i >= 0; i--) {
+			d[i] += c[i + j];
+		}
+	}
+	for (int l = bit - 1; l >= 0; l--) {
+		if (d[l] / 10 > 0) {
+			d[l - 1] += d[l] / 10;
+			d[l] = d[l] % 10;
+		}
+		b[l] = d[l];
+	}
+}
+
+int main() {
+	while (1) {
+		string target = "000000";
+		int power;
+		target[0] = getchar();
+		if (target[0] == EOF) {
+			return 0;
+		}
+		for (int i = 1; i < 6; i++) {
+			target[i] = getchar();
+		}
+		int where_original_dot_is = target.find('.');//获得小数点的位置
+		int num_of_behind_zero = 0;//获得后导0的个数
+		for (int i = 5; i >= 0; i--) {
+			if (target[i] == '0') {
+				num_of_behind_zero++;
+			}
+			else {
+				break;
+			}
+		}
+		for (int i = where_original_dot_is; i > 0; i--) {
+			target[i] = target[i - 1];
+			target[i - 1] = '0';
+		}
+		if (target[0] == '.') {
+			target[0] = '0';
+		}
+		int real_small_bit_num = 5 - num_of_behind_zero - where_original_dot_is;//有效小数点个数
+		scanf("%d", &power);
+		getchar();//丢掉回车
+		int seed_num_length = 5 - num_of_behind_zero;//包含前导零的有效整数长度
+		int bit = seed_num_length * power;
+		int* a = (int*)malloc(sizeof(int) * bit);
+		int* b = (int*)malloc(sizeof(int) * bit);
+		for (int i = 0; i < bit; i++) {
+			a[i] = 0;
+			b[i] = 0;
+		}
+		for (int i = bit - 1; 6 - num_of_behind_zero - bit + i >= 0; i--) {
+			a[i] = (int)(target[6 - num_of_behind_zero - bit + i] - '0');
+			b[i] = a[i];
+		}
+		for (int i = 1; i < power; i++) {
+			muti(a, b, bit, seed_num_length);
+		}
+		int where_dot_should_be = real_small_bit_num * power;
+		int startzero = 0;
+		for (int i = 0; i < bit - where_dot_should_be; i++) {
+			if (b[i] != 0) {
+				startzero = 1;
+			}
+			if (startzero == 1) {
+				printf("%d", b[i]);
+			}
+		}
+		if (where_dot_should_be == 0) {
+			printf("\n");
+			continue;
+		}
+		putchar('.');
+		if (where_dot_should_be <= bit) {
+			for (int i = bit - where_dot_should_be; i < bit; i++) {
+				printf("%d", b[i]);
+			}
+		}
+		else {
+			for (int i = 0; i < where_dot_should_be - bit; i++) {
+				putchar('0');
+			}
+			for (int i = 0; i < bit; i++) {
+				printf("%d", b[i]);
+			}
+		}
+		printf("\n");
+		free(a);
+		free(b);
+	}
+}

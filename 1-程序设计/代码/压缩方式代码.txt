@@ -1,0 +1,34 @@
+#pragma warning(disable:4996)
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int main(void) {
+	string line1;
+	getline(cin, line1);
+	int n = line1.length();
+	string tmp;
+	for (int i = 2; i <= n; i++) {
+		getline(cin, tmp);
+		line1 = line1 + tmp;
+	}
+	cout << n << ' ';
+	int cnt = 1;
+	if (line1[0] == '1') {
+		cout << '0' << ' ';
+	}
+	for (int i = 1; i < n * n; i++) {
+		if (line1[i] == line1[i - 1]) {
+			cnt++;
+		}
+		else {
+			cout << cnt << ' ';
+			cnt = 1;
+		}
+		if (i == n * n - 1) {
+			cout << cnt;
+			break;
+		}
+	}
+}

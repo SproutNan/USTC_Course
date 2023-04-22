@@ -1,0 +1,165 @@
+#pragma warning(disable:4996)
+#include<stdio.h>
+#include<malloc.h>
+int n, m;
+int yesorno[1000000];
+
+int eff_city(int* num) {//每行第0个元素就存这个值
+	int i = 0;
+	for (int k = 1; k < m + 3; k++) {
+		if (num[k] != 0) {
+			i++;
+		}
+		else {
+			break;
+		}
+	}
+	return i;
+}
+
+//交换位置
+void swap(int* a, int* b) {
+	*a = *a + *b;
+	*b = *a - *b;
+	*a = *a - *b;
+}
+
+//给数组排序,数组长度给定。//第0个元素不参与排序
+void sort(int num[], int numlenth) {
+	int re = 1;
+	for (; re == 1;) {
+		re = 0;
+		for (int i = 2; i < numlenth; i++) {
+			if (num[i - 1] < num[i]) {
+				swap(&num[i], &num[i - 1]);
+				re = 1;
+			}
+		}
+	}
+}
+
+int search(int num[], int target) {
+	for (int i = 1; i < m + 3; i++) {
+		if (num[i] == target) {
+			return 1;
+		}
+		if (num[i] == 0) {
+			return 0;
+		}
+	}
+	return 0;
+}
+
+int merge(int num1[], int num2[], int bit1) {
+	int k = 0;
+	if (num1[0] == 0 || num2[0] == 0) {
+		return 0;
+	}
+	for (int i = 1; i <= num2[0]; i++) {
+		if (search(num1, num2[i]) == 0) {
+			if (num2[i] == bit1) {
+				num2[i] = 0;
+				continue;
+			}
+			num1[num1[0] + 1] = num2[i];
+			num1[0]++;
+			k = 1;
+		}
+		num2[i] = 0;
+	}
+	num2[0] = 0;
+	if (k == 0) {
+		return 0;
+	}
+	else {
+		return 1;
+	}
+}
+
+void display(int** cityb) {
+	for (int i = 1; i <= n; i++) {
+		printf("%d : ", i);
+		for (int j = 0; j < m + 1; j++) {
+			printf("%d ", cityb[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+
+int main(void) {
+	scanf("%d %d", &n, &m);//有n个城市，m条路线
+	int** city = (int**)malloc(sizeof(int*) * (n + 1));
+	for (int i = 1; i <= n; i++) {
+		city[i] = (int*)malloc(sizeof(int) * (m + 3));
+		for (int j = 0; j < m + 3; j++) {
+			city[i][j] = 0;
+		}
+	}
+	int bit1, bit2;
+	scanf("%d %d", &bit1, &bit2);
+	city[bit1][1] = bit2;
+	city[bit2][1] = bit1;
+	city[bit1][0] = 1;
+	city[bit2][0] = 1;
+	for (int i = 0; i < m - 1; i++) {
+		scanf("%d %d", &bit1, &bit2);
+		if (search(city[bit1], bit2) == 0) {
+			city[bit1][city[bit1][0] + 1] = bit2;
+			city[bit1][0]++;
+
+		}
+		if (search(city[bit2], bit1) == 0) {
+			city[bit2][city[bit2][0] + 1] = bit1;
+			city[bit2][0]++;
+		}
+	}
+	//for (int i = 1; i <= n; i++) {
+	//	printf("%d : ", i);
+	//	for (int j = 0; j < m + 1; j++) {
+	//		printf("%d ", city[i][j]);
+	//	}
+	//	printf("\n");
+	//}
+	for (;;) {
+		int** cityb = (int**)malloc(sizeof(int*) * (n + 1));
+		for (int i = 1; i <= n; i++) {
+			cityb[i] = (int*)malloc(sizeof(int) * (m + 3));
+			for (int j = 0; j < m + 3; j++) {
+				cityb[i][j] = city[i][j];
+			}
+		}
+		scanf("%d %d", &bit1, &bit2);
+		if (bit1 == 0) {
+			break;
+		}
+		if (bit1 == bit2) {
+			printf("Yes");
+			break;
+		}
+		int value_last = 1;
+		for (;;) {
+			int k = 0;
+			int value = cityb[bit1][0];
+			for (int i = value_last; i <= value; i++) {
+				k += merge(cityb[bit1], cityb[cityb[bit1][i]], bit1);
+				//display(cityb);
+				if (search(cityb[bit1], bit2) == 1) {
+					printf("Yes\n");
+					goto end;
+				}
+			}
+			value_last = value + 1;
+			if (k == 0) {
+				break;
+			}
+		}
+		if (search(cityb[bit1], bit2) == 1) {
+			printf("Yes\n");
+		}
+		else {
+			printf("No\n");
+		}
+	end:;
+	}
+}

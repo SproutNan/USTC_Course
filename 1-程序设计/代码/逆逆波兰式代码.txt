@@ -1,0 +1,219 @@
+#pragma warning(disable:4996)
+#include<iostream>
+#include<string>
+#include<malloc.h>
+
+using namespace std;
+
+int num_now = 0;//当前伪栈中数字计算器
+
+int cnt = 1;
+struct _stack {
+	char number_notation = ']';//n->num t->notation
+	bool the_outest_package = false;
+	bool bigger_fronter = false;//是否具有运算优先级，比如该式子为a*b时，具有优先级true，a+b时为false
+	string normal = "这是一些用来开辟空间的占位符希望你不要删掉谢谢至于为什么用中文当然是因为中文所占字符多啊哈哈哈哈哈哈";
+};
+typedef struct _stack stack;
+bool isNumber(char a) {
+	if (a >= '0' && a <= '9') {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+char isRelation(char a) {
+	if (a == '+' || a == '-') {
+		return '1';
+	}
+	else {
+		if (a == '*' || a == '/') {
+			return '2';
+		}
+		else {
+			return '0';
+		}
+	}
+}
+void displayqueue(stack a) {
+	cout << "伪栈中还有" << num_now << "个数字" << endl << cnt << '#' << endl << a.normal << endl << "级数" << (bool)a.bigger_fronter << endl << "是否有括号" << (bool)a.the_outest_package << endl << endl;
+	cnt++;
+}
+int main() {
+start:;
+	string command;
+	cin >> command;
+	int command_length = command.length();
+	stack* queue = new stack[command_length];
+	int now = 0;
+	int nut = 0;
+	for (int i = 0; i < command_length; i++) {
+		if (isNumber(command[i]) == true) {//如果当前token是数字
+			queue[now].normal = command[i];//将数字直接压入伪栈中
+			queue[now].number_notation = 'n';//标记这是一个数字
+			now++;//伪栈数增加
+			num_now++;//当前有效数字数增加
+		}
+		else {
+			queue[now].number_notation = 't';//标记这将成为一个表达式
+			if (queue[now - 1].number_notation == 'n' && queue[now - 2].number_notation == 'n') {
+				//如果relation前两个都是数字
+				num_now -= 2;//有效数字减少两个
+				nut++;
+				if (isRelation(command[i]) == '2') {//如果是*或/，此时可能存在优先级，故不加括号
+					queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;//此时外面无括号
+					queue[now].bigger_fronter = true;//标记这是优先表达式
+					queue[now].the_outest_package = false;
+				}
+				if (isRelation(command[i]) == '1') {//如果是+或者-
+					if (num_now == 0) {//如果是首位，则可能不存在优先级，故不加括号
+						queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;//最前面 也不应有括号
+						queue[now].the_outest_package = false;
+					}
+					else {//如果不是首位，这样一个优先级最低的式子按照题目是一定要加括号的
+						queue[now].normal = "(" + queue[now - 2].normal + command[i] + queue[now - 1].normal + ")";
+						queue[now].the_outest_package = true;//标记一下这是一个最外层有括号的式子
+					}
+					queue[now].bigger_fronter = false;
+				}
+			}
+			else {
+				if (queue[now - 1].number_notation == 't' && queue[now - 2].number_notation == 'n') {
+					//如果relation是这样的：n t r
+					num_now -= 1;//有效数字减少1个
+					if (isRelation(command[i]) == '2') {//如果要将n和t二级结合，先要考虑这个t有没有最外层括号
+						if (queue[now - 1].the_outest_package == false) {//如果没有则加上
+							queue[now - 1].normal = "(" + queue[now - 1].normal + ")";
+							queue[now - 1].the_outest_package = true;
+						}
+						//二级式子的合并最外层默认不加括号
+						queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;//此时外面无括号
+						queue[now].the_outest_package = false;
+						queue[now].bigger_fronter = true;//标记这是一个二级式子
+					}
+					if (isRelation(command[i]) == '1') {//如果要将n和t一级结合，因为t在后面，也得考虑t有没有括号
+						if (queue[now - 1].bigger_fronter == false && queue[now - 1].the_outest_package == false) {//如果没有则加上
+							queue[now - 1].normal = "(" + queue[now - 1].normal + ")";
+							queue[now - 1].the_outest_package = true;
+						}
+						if (num_now == 0) {//如果在首位，不加括号
+							queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;//最前面 也不应有括号
+							queue[now].the_outest_package = false;
+						}
+						else {//如果不在，这样一个优先级最低的式子按照题目是一定要加括号的
+							queue[now].normal = "(" + queue[now - 2].normal + command[i] + queue[now - 1].normal + ")";
+							queue[now].the_outest_package = true;
+						}
+						queue[now].bigger_fronter = false;
+					}
+				}
+				else {
+					if (queue[now - 1].number_notation == 'n' && queue[now - 2].number_notation == 't') {
+						//如果relation是这样的：t n r
+						num_now -= 1;//有效数字减少1个
+						if (isRelation(command[i]) == '2') {//如果要将t和n二级结合，先要考虑t是几级式子
+							if (queue[now - 2].bigger_fronter == true) {//如果t是二级式子，进行二级合并t也不用加括号
+								queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;
+								queue[now].the_outest_package = false;
+							}
+							else {//如果t是一级式子，进行二级合并是需要加括号的
+								if (queue[now - 2].the_outest_package == true) {
+									queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;
+									queue[now].the_outest_package = false;
+								}
+								else {//t没有最外层括号的合并方式
+									queue[now].normal = "(" + queue[now - 2].normal + ")" + command[i] + queue[now - 1].normal;
+									queue[now].the_outest_package = false;
+								}
+							}
+							queue[now].bigger_fronter = true;//标记这是一个二级式子
+						}
+						if (isRelation(command[i]) == '1') {//如果要将t和n一级结合，不管t是几级式子都不需要将t加括号
+							if (num_now == 0) {//如果在首位，不加括号
+								queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;//最前面 也不应有括号
+							}
+							else {//如果不在，这样一个优先级最低的式子按照题目是一定要加括号的
+								queue[now].normal = "(" + queue[now - 2].normal + command[i] + queue[now - 1].normal + ")";
+								queue[now].the_outest_package = true;
+							}
+							queue[now].bigger_fronter = false;
+						}
+					}
+					else {
+						if (queue[now - 1].number_notation == 't' && queue[now - 2].number_notation == 't') {
+							//如果relation是这样的：t t r，则有效数字不变，不论是几级结合都要加括号
+							if (isRelation(command[i]) == '2') {//如果要将t和t二级结合，都要加括号
+								if (queue[now - 1].bigger_fronter == true &&
+									queue[now - 2].bigger_fronter == true) {
+									if (queue[now - 1].the_outest_package == false) {//如果没有则加上
+										queue[now - 1].normal = "(" + queue[now - 1].normal + ")";
+									}
+									queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;
+								}
+								else {
+									if (queue[now - 1].the_outest_package == false) {//如果没有则加上
+										queue[now - 1].normal = "(" + queue[now - 1].normal + ")";
+									}
+									if (queue[now - 2].the_outest_package == false) {//如果没有则加上
+										queue[now - 2].normal = "(" + queue[now - 2].normal + ")";
+									}
+									queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;
+								}
+								queue[now].the_outest_package = false;
+								queue[now].bigger_fronter = true;//标记这是一个二级式子
+							}
+							if (isRelation(command[i]) == '1') {//如果要将t和t一级结合  //待看
+								if (num_now == 0) {//如果在首位，前一个不加括号
+									if (queue[now - 1].bigger_fronter == false && queue[now - 1].the_outest_package == false) {
+										//第二个如果是一级式子，没有括号则加上，如果是二级式子，不用加
+										queue[now - 1].normal = "(" + queue[now - 1].normal + ")";
+									}
+									queue[now].normal = queue[now - 2].normal + command[i] + queue[now - 1].normal;//最前面 也不应有括号
+									queue[now].the_outest_package = false;
+									queue[now].bigger_fronter = false;
+								}
+								else {//式子不在首位，即为中央 t + t的形式，需要考虑t的级数
+									if (queue[now - 2].bigger_fronter == false && queue[now - 1].bigger_fronter == false) {//前后1级，都要加括号
+										if (queue[now - 1].the_outest_package == false) {//如果没有则加上
+											queue[now - 1].normal = "(" + queue[now - 1].normal + ")";
+										}
+										if (queue[now - 2].the_outest_package == false) {//如果没有则加上
+											queue[now - 2].normal = "(" + queue[now - 2].normal + ")";
+										}
+									}
+									if (queue[now - 2].bigger_fronter == true && queue[now - 1].bigger_fronter == false) {//仅第二个式子要加括号
+										if (queue[now - 1].the_outest_package == false) {//如果没有则加上
+											queue[now - 1].normal = "(" + queue[now - 1].normal + ")";
+										}
+									}
+									if (queue[now - 2].bigger_fronter == false && queue[now - 1].bigger_fronter == true) {//前一个要加括号
+										if (queue[now - 2].the_outest_package == false) {//如果没有则加上
+											queue[now - 2].normal = "(" + queue[now - 2].normal + ")";
+										}
+									}
+									queue[now].normal = "(" + queue[now - 2].normal + command[i] + queue[now - 1].normal + ")";
+									queue[now].the_outest_package = true;
+								}
+							}
+						}
+					}
+				}
+			}
+			queue[now - 2] = queue[now];
+			now -= 1;
+			//displayqueue(queue[now - 1]);
+			//for (int j = 0; j < now; j++) {
+			//	printf("%s\n", queue[j].normal.c_str());
+			//	//printf("级数:%d\n", queue[j].bigger_fronter);
+			//}
+		}
+		//for (int j = 0; j < now; j++) {
+		//	printf("%s\n", queue[j].normal.c_str());
+		//}
+	}
+	for (int j = 0; j < now; j++) {
+		printf("%s\n", queue[j].normal.c_str());
+	}
+	goto start;
+}

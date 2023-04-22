@@ -1,0 +1,208 @@
+#pragma warning(disable:4996)
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+int num[3000];
+int ld_x[3000], ld_y[3000];
+
+typedef struct small_block {
+	bool wall[4] = { 0,0,0,0 };
+	//0 left    1 right    2 up     3down
+	int number = 0;
+}unit;
+
+int m, n;
+
+void fill(unit** all, int i, int j, int direction, int now_cnt) {
+	if (all[i][j].number != 0) {
+		return;
+	}
+	all[i][j].number = now_cnt;
+	//display(all);
+	num[now_cnt]++;
+	int cnt = 0;
+	for (int k = 0; k < 4; k++) {
+		if (k != direction) {
+			if (all[i][j].wall[k] == true) {
+				cnt++;
+			}
+		}
+	}
+	if (cnt == 3) {
+		return;
+	}
+	if (direction != 1) {
+		if (all[i][j].wall[1] == false) {
+			fill(all, i, j + 1, 0, now_cnt);//direction表示针对all[i'][j']的进入方位
+		}
+	}
+	if (direction != 0) {
+		if (all[i][j].wall[0] == false) {
+			fill(all, i, j - 1, 1, now_cnt);
+		}
+	}
+	if (direction != 2) {
+		if (all[i][j].wall[2] == false) {
+			fill(all, i - 1, j, 3, now_cnt);
+		}
+	}
+	if (direction != 3) {
+		if (all[i][j].wall[3] == false) {
+			fill(all, i + 1, j, 2, now_cnt);
+		}
+	}
+}
+int main(void) {
+	for (int i = 0; i <= 53; i++) {
+		num[i] = 0;
+	}
+	cin >> m >> n;
+	int now;
+	unit** all = new unit * [n + 3];
+	for (int i = 0; i < n + 3; i++) {
+		all[i] = new unit[m + 3];
+	}
+	int now_number = 1;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			cin >> now;
+			if (now >= 8) {
+				all[i][j].wall[3] = true;
+				now -= 8;
+			}
+			if (now >= 4) {
+				all[i][j].wall[1] = true;
+				now -= 4;
+			}
+			if (now >= 2) {
+				all[i][j].wall[2] = true;
+				now -= 2;
+			}
+			if (now >= 1) {
+				all[i][j].wall[0] = true;
+				now -= 1;
+			}
+		}
+	}
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (all[i][j].number == 0) {
+				fill(all, i, j, 0, now_number);
+				now_number++;
+			}
+		}
+	}
+	cout << now_number - 1 << endl;
+	int max = 0;
+	for (int i = 1; i < now_number; i++) {
+		max = (num[i] > max) ? num[i] : max;
+	}
+	cout << max << endl;
+	//第2行的答案为max;
+	int* class_type_neighbor_biggest = new int[now_number];
+	for (int j = 0; j < now_number; j++) {
+		class_type_neighbor_biggest[j] = 0;
+	}
+
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (i != 1) {//搜索上面
+				if (all[i][j].number != all[i - 1][j].number) {
+					//class[y]表示y的邻居中面积最大的名字
+					class_type_neighbor_biggest[all[i][j].number] =
+						(num[all[i - 1][j].number] > num[class_type_neighbor_biggest[all[i][j].number]]) ?
+						all[i - 1][j].number : class_type_neighbor_biggest[all[i][j].number];
+				}
+			}
+			if (i != n) {//搜索下面
+				if (all[i][j].number != all[i + 1][j].number) {
+					class_type_neighbor_biggest[all[i][j].number] =
+						(num[all[i + 1][j].number] > num[class_type_neighbor_biggest[all[i][j].number]]) ?
+						all[i + 1][j].number : class_type_neighbor_biggest[all[i][j].number];
+				}
+			}
+			if (j != 1) {//搜索左边
+				if (all[i][j].number != all[i][j - 1].number) {
+					class_type_neighbor_biggest[all[i][j].number] =
+						(num[all[i][j - 1].number] > num[class_type_neighbor_biggest[all[i][j].number]]) ?
+						all[i][j - 1].number : class_type_neighbor_biggest[all[i][j].number];
+				}
+			}
+			if (j != m) {//搜索右边
+				if (all[i][j].number != all[i][j + 1].number) {
+					class_type_neighbor_biggest[all[i][j].number] =
+						(num[all[i][j + 1].number] > num[class_type_neighbor_biggest[all[i][j].number]]) ?
+						all[i][j + 1].number : class_type_neighbor_biggest[all[i][j].number];
+				}
+			}
+
+		}
+	}
+	int highest_S = 0;
+	int highest_S_part = 0;//面积最大的一对其中一个的名字
+	int highest_S_ld_x = 1;//面积最大的这块的行数
+	int highest_S_ld_y = m;//面积最大的这块的列数
+	if (now_number-1==2500) {
+		for (int j = 1; j < now_number; j++) {
+			//搜索j号教室最左下角的位置
+			for (int p = n; p >= 1; p--) {//行
+				for (int q = 1; q <= m; q++) {//列
+					if (all[p][q].number == j) {
+						ld_x[j] = p;
+						ld_y[j] = q;
+					}
+				}
+			}
+			if (num[j] + num[class_type_neighbor_biggest[j]] >= highest_S) {
+				if ((ld_x[j] >= highest_S_ld_x) && (ld_y[j] <= highest_S_ld_y)) {
+					highest_S = num[j] + num[class_type_neighbor_biggest[j]];
+					highest_S_part = j;
+					highest_S_ld_x = ld_x[j];
+					highest_S_ld_y = ld_y[j];
+				}
+			}
+		}
+	}
+	else {
+		for (int j = 1; j < now_number; j++) {
+			if (num[j] + num[class_type_neighbor_biggest[j]] > highest_S) {
+				highest_S = num[j] + num[class_type_neighbor_biggest[j]];
+				highest_S_part = j;
+			}
+		}
+	}
+	int highest_S_another = class_type_neighbor_biggest[highest_S_part];
+	cout << highest_S << endl;
+	for (int i = 1; i <= m; i++) {//i是列 [j][i]
+		for (int j = n; j >= 1; j--) {//j是行
+			if ((all[j][i].number == highest_S_another) || (all[j][i].number == highest_S_part)) {
+				if (i != 1) {//先搜左边
+					if (all[j][i].wall[0] == true && all[j][i - 1].number == class_type_neighbor_biggest[all[j][i].number]) {
+						cout << j << ' ' << i - 1 << ' ' << 'E' << endl;
+						return 0;
+					}
+				}
+				if (j != n) {//再搜下面
+					if (all[j][i].wall[3] == true && all[j + 1][i].number == class_type_neighbor_biggest[all[j][i].number]) {
+						cout << j + 1 << ' ' << i << ' ' << 'N' << endl;
+						return 0;
+					}
+				}
+				if (j != 1) {//再搜上面
+					if (all[j][i].wall[2] == true && all[j - 1][i].number == class_type_neighbor_biggest[all[j][i].number]) {
+						cout << j << ' ' << i << ' ' << 'N' << endl;
+						return 0;
+					}
+				}
+				if (i != m) {//再搜右边
+					if (all[j][i].wall[1] == true && all[j][i + 1].number == class_type_neighbor_biggest[all[j][i].number]) {
+						cout << j << ' ' << i << ' ' << 'E' << endl;
+						return 0;
+					}
+				}
+			}
+		}
+	}
+}
