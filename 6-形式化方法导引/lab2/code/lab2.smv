@@ -1,0 +1,44 @@
+MODULE main
+    VAR
+        s : { s0, s1, s2, s3, s4, s5, s6, s7 };
+    
+    ASSIGN
+        init(s) := s0;
+        next(s) := case
+            s = s0 : { s1, s5 };
+            s = s1 : { s2, s3 };
+            s = s2 : { s0, s4 };
+            s = s3 : { s4, s7 };
+            s = s4 : s5;
+            s = s5 : { s3, s6 };
+            s = s6 : { s0, s7 };
+            s = s7 : s1;
+        esac;
+
+    DEFINE
+        n1 := s = s0 | s = s5 | s = s6;
+        t1 := s = s1 | s = s3 | s = s7;
+        c1 := s = s2 | s = s4;
+        n2 := s = s0 | s = s1 | s = s2;
+        t2 := s = s5 | s = s3 | s = s4;
+        c2 := s = s6 | s = s7;
+    
+    -- safety
+    CTLSPEC
+        AG(!(c1 & c2))
+    -- liveness
+    CTLSPEC
+        AG(t1 -> AF(c1))
+    CTLSPEC
+        AG(t2 -> AF(c2))
+    -- non-blocking
+    CTLSPEC
+        AG(n1 -> EF(t1))
+    CTLSPEC
+        AG(n2 -> EF(t2))
+    -- no strict sequencing
+    CTLSPEC
+        EF(c1 & E[c1 U (!c1 & E[(!c2) U c1])])
+    CTLSPEC
+        EF(c2 & E[c2 U (!c2 & E[(!c1) U c2])])
+

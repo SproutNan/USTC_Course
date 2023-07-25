@@ -1,0 +1,26 @@
+ex1
+Proof.
+  intros A H1 H2.
+  apply H1.
+  intros H3.
+  apply H3.
+  apply H2.
+Qed.
+
+ex2
+Proof.
+  intros A B C.
+  unfold not.
+  intros [not_A not_B].
+  destruct C as [A_true | B_true].
+  - apply not_A in A_true. contradiction.
+  - apply not_B in B_true. contradiction.
+Qed.
+
+ex3
+Proof.
+  intros T P H x P_x.
+  apply H.
+  exists x.
+  exact P_x.
+Qed.
